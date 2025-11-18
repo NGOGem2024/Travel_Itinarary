@@ -1,0 +1,96 @@
+.path {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+}
+.nodeWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.connector {
+  width: 56px;
+  height: 8px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    .svg {display: block;} .pathInactive {stroke-dasharray: 260; stroke-dashoffset:
+      220; opacity: 0.36; transition: stroke-dashoffset 600ms ease,
+    opacity 500ms;} .pathActive {stroke-dasharray: 260; stroke-dashoffset: 0;
+      opacity: 1; transition: stroke-dashoffset 700ms
+      cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 400ms;} .nodeActive {fill: #fff; stroke: var(--accent-1) ;
+      stroke-width: 4px; filter:
+      drop-shadow(0 6px 18px rgba(123, 97, 255, 0.12)) ;} rgba(255, 122, 182, 0.14),
+    rgba(123, 97, 255, 0.14)
+  );
+  position: relative;
+  overflow: hidden;
+}
+.connector::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.12)
+  );
+  mix-blend-mode: overlay;
+}
+.connector::after {
+  content: "";
+  position: absolute;
+  left: -60%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0)
+  );
+  transform: skewX(-18deg);
+  animation: shine 1.6s linear infinite;
+}
+.node {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #ffd6e8);
+  box-shadow: 0 12px 28px rgba(123, 97, 255, 0.08);
+  border: 3px solid #fff;
+  position: relative;
+}
+.node::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(123, 97, 255, 0.12);
+  animation: pulse 2000ms infinite;
+}
+
+@keyframes shine {
+  from {
+    left: -60%;
+  }
+  to {
+    left: 160%;
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}

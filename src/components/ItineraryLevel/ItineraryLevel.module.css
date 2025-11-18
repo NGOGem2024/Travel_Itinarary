@@ -1,0 +1,556 @@
+.levelCard {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 220ms;
+  animation: floatIn 540ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+  position: relative;
+}
+.levelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    var(--accent-2),
+    var(--accent-1)
+  );
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.12);
+  position: relative;
+}
+.levelCircle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent);
+  mix-blend-mode: screen;
+}
+.stay {
+  font-weight: 800;
+  color: #172036;
+}
+.content {
+  font-size: 0.94rem;
+  color: #2d3450;
+}
+.segment {
+  color: #61627a;
+  margin-bottom: 8px;
+}
+.section ul {
+  margin: 8px 0 0 18px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #222;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* completed state */
+.completed {
+  opacity: 0.78;
+  filter: grayscale(0.06);
+}
+.completeBtn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.completeBtn:hover {
+  transform: translateY(-2px);
+  color: var(--accent-1);
+}
+.completeOverlay {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: linear-gradient(90deg, #b9f6d9, #7bffbd);
+  color: #063;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.08);
+}
+.levelCard {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 220ms;
+  animation: floatIn 540ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+  position: relative;
+}
+.levelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    var(--accent-2),
+    var(--accent-1)
+  );
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.12);
+  position: relative;
+}
+.levelCircle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent);
+  mix-blend-mode: screen;
+}
+.stay {
+  font-weight: 800;
+  color: #172036;
+}
+.content {
+  font-size: 0.94rem;
+  color: #2d3450;
+}
+.segment {
+  color: #61627a;
+  margin-bottom: 8px;
+}
+.section ul {
+  margin: 8px 0 0 18px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #222;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* completed state */
+.completed {
+  opacity: 0.78;
+  filter: grayscale(0.06);
+}
+.completeBtn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.completeBtn:hover {
+  transform: translateY(-2px);
+  color: var(--accent-1);
+}
+.completeOverlay {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: linear-gradient(90deg, #b9f6d9, #7bffbd);
+  color: #063;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.08);
+}
+
+.levelCard {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 220ms;
+  animation: floatIn 540ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+  position: relative;
+}
+.levelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    var(--accent-2),
+    var(--accent-1)
+  );
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.12);
+}
+.levelCircle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent);
+  mix-blend-mode: screen;
+}
+.stay {
+  font-weight: 800;
+  color: #172036;
+}
+.content {
+  font-size: 0.94rem;
+  color: #2d3450;
+}
+.segment {
+  color: #61627a;
+  margin-bottom: 8px;
+}
+.section ul {
+  margin: 8px 0 0 18px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #222;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* completed state */
+.completed {
+  opacity: 0.78;
+  filter: grayscale(0.06);
+}
+.completeBtn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.completeBtn:hover {
+  transform: translateY(-2px);
+  color: var(--accent-1);
+}
+.completeOverlay {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: linear-gradient(90deg, #b9f6d9, #7bffbd);
+  color: #063;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.08);
+}
+.levelCard {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 220ms;
+  animation: floatIn 540ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+  position: relative;
+  overflow: visible;
+}
+.levelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    var(--accent-2),
+    var(--accent-1)
+  );
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.12);
+  transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
+}
+.levelCircle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent);
+  mix-blend-mode: screen;
+}
+.stay {
+  font-weight: 800;
+  color: #172036;
+}
+.content {
+  font-size: 0.94rem;
+  color: #3b4260;
+}
+.segment {
+  color: #6a6a86;
+  margin-bottom: 8px;
+}
+.section ul {
+  margin: 8px 0 0 18px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #222;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* completed state */
+.completed {
+  opacity: 0.72;
+  filter: grayscale(0.05);
+  position: relative;
+}
+.completeBtn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.completeBtn:hover {
+  transform: translateY(-2px);
+  color: var(--accent-1);
+}
+.completeOverlay {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: linear-gradient(90deg, #b9f6d9, #7bffbd);
+  color: #063;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.08);
+}
+.levelCard {
+  min-width: 260px;
+  max-width: 320px;
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 400ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 200ms;
+}
+.levelCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(123, 97, 255, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCard {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(0);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 220ms;
+  animation: floatIn 540ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+.levelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.levelCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    var(--accent-2),
+    var(--accent-1)
+  );
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.12);
+  transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
+}
+.levelCircle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent);
+  mix-blend-mode: screen;
+}
+.stay {
+  font-weight: 800;
+  color: #172036;
+}
+.content {
+  font-size: 0.94rem;
+  color: #3b4260;
+}
+.segment {
+  color: #6a6a86;
+  margin-bottom: 8px;
+}
+.section ul {
+  margin: 8px 0 0 18px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #222;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
