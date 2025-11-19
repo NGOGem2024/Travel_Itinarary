@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Plan from "./pages/Plan/Plan";
 import "./App.css";
+// import TravelForm from "./components/TravelForm/TravelForm";
 
-function App() {
-  const [path, setPath] = useState(window.location.pathname);
-
+const App: React.FC = () => {
   useEffect(() => {
-    const onPop = () => setPath(window.location.pathname);
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
+    scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    if (path !== "/" && path !== "/plan") {
-      window.history.replaceState({}, "", "/");
-      setPath("/");
-    }
-  }, [path]);
-
   return (
     <div className="app-root">
-      {path === "/" && <Home />}
-      {path === "/plan" && <Plan />}
+      <Routes>
+        {/* <Route path="/" element={<TravelForm/>} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/plan" element={<Plan />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

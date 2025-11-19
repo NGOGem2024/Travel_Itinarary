@@ -1,41 +1,36 @@
 import React from "react";
+import { motion } from "framer-motion";
 import styles from "./LevelPath.module.css";
 
-type Props = {
-  // whether the connector should display as active/filled
-  active?: boolean;
-};
+/*
+  LevelPath.tsx
+  ------------------------------------------------------
+  A BEAUTIFUL, MINIMAL TRAVEL PATH CONNECTOR
+  - Animated dots
+  - Vertical line
+  - Works with ItineraryLevel cards
+  - Smooth motion on load
+*/
 
-const LevelPath: React.FC<Props> = ({ active = false }) => {
-  // A curved SVG segment to sit between two level cards
+interface Props {
+  steps: number; // total number of days
+}
+
+const LevelPath: React.FC<Props> = ({ steps }) => {
   return (
-    <div className={styles.path}>
-      <svg
-        className={styles.svg}
-        width="140"
-        height="72"
-        viewBox="0 0 140 72"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <defs>
-          <linearGradient id="g1" x1="0%" x2="100%">
-            <stop offset="0%" stopColor="#ffd6e8" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#c9b8ff" stopOpacity="0.9" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M6,60 C48,10 92,10 134,60"
-          fill="none"
-          stroke="url(#g1)"
-          strokeWidth="6"
-          strokeLinecap="round"
-          className={active ? styles.pathActive : styles.pathInactive}
-        />
-        {active && (
-          <circle cx="6" cy="60" r="8" className={styles.nodeActive} />
-        )}
-      </svg>
+    <div className={styles.wrapper}>
+      {Array.from({ length: steps }).map((_, i) => (
+        <motion.div
+          key={i}
+          className={styles.item}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.1 }}
+        >
+          <div className={styles.dot} />
+          {i < steps - 1 && <div className={styles.line} />}
+        </motion.div>
+      ))}
     </div>
   );
 };

@@ -1,40 +1,28 @@
-export type TravelMode = 'bus' | 'train' | 'flight' | 'car'
+export type TravelMode = 'bus' | 'train' | 'flight' | 'car' | 'other'
 
-export interface ItineraryInput {
-  from: string
-  to: string
-  mode: TravelMode
-  days: number
-  preferences?: Record<string, string>
-}
-
-export interface StayInfo {
-  name: string
-  address?: string
-  cost?: number
-}
-
-export interface TravelSegment {
-  from: string
-  to: string
-  mode: TravelMode
-  duration?: string
-  cost?: number
+export interface TravelPreferences {
+  budget?: string
+  foodPreferences?: string
+  mustVisit?: string[]
+  comfort?: 'low' | 'medium' | 'high'
 }
 
 export interface DayPlan {
   day: number
   date?: string
-  stay: StayInfo
-  travel?: TravelSegment
-  sightseeing: string[]
+  stay: string
+  travels: string[]
+  activities: string[]
   food: string[]
-  dailyBudget: number
-  notes?: string
+  approximateCost?: number
 }
 
 export interface Itinerary {
-  input: ItineraryInput
-  days: DayPlan[]
-  totalBudget: number
+  from: string
+  to: string
+  travelMode: TravelMode
+  days: number
+  preferences?: TravelPreferences
+  dayPlans: DayPlan[]
+  totalEstimatedCost?: number
 }

@@ -1,72 +1,110 @@
 import React from "react";
+import { motion } from "framer-motion";
 import styles from "./ItineraryLevel.module.css";
-import type { DayPlan } from "../../types/itinerary.d";
+import type { DayPlan } from "../../types/itinerary";
 
-type Props = {
+/*
+  FULLY UPDATED BEAUTIFUL DAY-LEVEL COMPONENT
+  -----------------------------------------------------
+  - Supports: date, travels[], activities[], food[], stay, approximateCost
+  - Modern adventure card look
+  - Timeline left bar
+  - Smooth animations
+  - Clean sections
+*/
+
+interface Props {
   plan: DayPlan;
-  isComplete?: boolean;
-  onToggleComplete?: (day: number) => void;
-  containerStyle?: React.CSSProperties;
-};
+}
 
-const ItineraryLevel: React.FC<Props> = ({
-  plan,
-  isComplete = false,
-  onToggleComplete,
-  containerStyle,
-}) => {
+const ItineraryLevel: React.FC<Props> = ({ plan }) => {
   return (
-    <div
-      className={`${styles.levelCard} ${isComplete ? styles.completed : ""}`}
-      style={containerStyle}
+    <motion.div
+      className={styles.card}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
     >
-      <div className={styles.header}>
-        <div className={styles.levelCircle}>Day {plan.day}</div>
-        <div className={styles.stay}>{plan.stay.name}</div>
-
-        <button
-          aria-label={isComplete ? "Mark incomplete" : "Mark complete"}
-          onClick={() => onToggleComplete && onToggleComplete(plan.day)}
-          className={styles.completeBtn}
-        >
-          {isComplete ? "✓" : "○"}
-        </button>
+      {/* TIMELINE LEFT SIDE */}
+      <div className={styles.timeline}>
+        <div className={styles.dot} />
+        <div className={styles.line} />
       </div>
 
+      {/* MAIN CONTENT */}
       <div className={styles.content}>
-        {plan.travel && (
-          <div className={styles.segment}>
-            ↔ {plan.travel.from} → {plan.travel.to} ({plan.travel.mode}) •{" "}
-            {plan.travel.duration}
-          </div>
-        )}
+        <h3 className={styles.dayTitle}>
+          Day {plan.day} {plan.date ? `• ${plan.date}` : ""}
+        </h3>
 
+        {/* ACTIVITIES */}
         <div className={styles.section}>
-          <strong>Sightseeing</strong>
-          <ul>
-            {plan.sightseeing.map((s, i) => (
-              <li key={i}>{s}</li>
+          <h4 className={styles.sectionTitle}>Activities</h4>
+          <ul className={styles.list}>
+            {plan.activities.map((act, i) => (
+              <li key={i}>✨ {act}</li>
             ))}
           </ul>
         </div>
 
+        {/* TRAVEL SECTION */}
         <div className={styles.section}>
-          <strong>Food</strong>
-          <ul>
+          <h4 className={styles.sectionTitle}>Travels</h4>
+          <ul className={styles.list}>
+            {plan.travels.map(
+              (
+                t:
+                  | string
+                  | number
+                  | bigint
+                  | boolean
+                  | React.ReactElement<
+                      unknown,
+                      string | React.JSXElementConstructor<any>
+                    >
+                  | Iterable<React.ReactNode>
+                  | React.ReactPortal
+                  | Promise<
+                      | string
+                      | number
+                      | bigint
+                      | boolean
+                      | React.ReactPortal
+                      | React.ReactElement<
+                          unknown,
+                          string | React.JSXElementConstructor<any>
+                        >
+                      | Iterable<React.ReactNode>
+                      | null
+                      | undefined
+                    >
+                  | null
+                  | undefined,
+                i: React.Key | null | undefined
+              ) => (
+                <li key={i}>🚗 {t}</li>
+              )
+            )}
+          </ul>
+        </div>
+
+        {/* FOOD SECTION */}
+        <div className={styles.section}>
+          <h4 className={styles.sectionTitle}>Food</h4>
+          <ul className={styles.list}>
             {plan.food.map((f, i) => (
-              <li key={i}>{f}</li>
+              <li key={i}>🍽️ {f}</li>
             ))}
           </ul>
         </div>
 
-        <div className={styles.footer}>
-          <div>Daily Budget: ${plan.dailyBudget}</div>
-          <div>Stay: ${plan.stay.cost}</div>
+        {/* META DATA (STAY + COST) */}
+        <div className={styles.metaBox}>
+          <span>🏨 Stay: {plan.stay}</span>
+          {plan.approximateCost && <span>💰 ₹{plan.approximateCost}</span>}
         </div>
       </div>
-
-      {isComplete && <div className={styles.completeOverlay}>Completed</div>}
-    </div>
+    </motion.div>
   );
 };
 

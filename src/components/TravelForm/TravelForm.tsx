@@ -1,77 +1,135 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import styles from "./TravelForm.module.css";
-import type { ItineraryInput, TravelMode } from "../../types/itinerary.d";
+import { FaBus, FaTrain, FaPlaneDeparture, FaCarSide } from "react-icons/fa";
+import type { TravelMode } from "../../types/itinerary";
 
-type Props = {
-  onSubmit: (input: ItineraryInput) => void;
+export interface TravelFormValues {
+  from: string;
+  to: string;
+  travelMode: TravelMode;
+  days: number;
+  budget?: string;
+  foodPreferences?: string;
+  mustVisit?: string;
+  comfort?: "low" | "medium" | "high";
+}
+
+interface Props {
+  onSubmit(values: TravelFormValues): void;
+}
+
+const formVariants: any = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 120, damping: 18 },
+  },
 };
 
 const TravelForm: React.FC<Props> = ({ onSubmit }) => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [mode, setMode] = useState<TravelMode>("flight");
-  const [days, setDays] = useState(3);
-  const [preferences, setPreferences] = useState("budget: medium; food: local");
+  const [values, setValues] = useState<TravelFormValues>({
+    from: "",
+    to: "",
+    travelMode: "train",
+    days: 3,
+    budget: "",
+    foodPreferences: "",
+    mustVisit: "",
+    comfort: "medium",
+  });
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    onSubmit({ from, to, mode, days, preferences: { raw: preferences } });
-  }
+  const modeIcons: Record<TravelMode, React.ReactNode> = {
+    bus: <FaBus />,
+    train: <FaTrain />,
+    flight: <FaPlaneDeparture />,
+    car: <FaCarSide />,
+    other: <FaCarSide />,
+  };
 
   return (
-    <form className={styles.form} onSubmit={submit}>
-      <div className={styles.row}>
-        <label>From</label>
-        <input
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
-          required
-        />
-      </div>
+    <motion.div
+      className={styles.wrapper}
+      variants={formVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <h2 className={styles.heading}>Plan Your Next Journey</h2>
+      <p className={styles.subheading}>Let AI craft your perfect itinerary</p>
 
-      <div className={styles.row}>
-        <label>To</label>
-        <input value={to} onChange={(e) => setTo(e.target.value)} required />
-      </div>
+      <div className={styles.flowContainer}>
+        <div className={styles.stepCard}>
+          <div className={styles.stepIcon}>🌍</div>
+          <h3>Where are you starting?</h3>
+          <input
+            required
+            placeholder="Enter your starting city"
+            value={values.from}
+            onChange={(e) => setValues({ ...values, from: e.target.value })}
+            className={styles.bigInput}
+          />
+        </div>
 
-      <div className={styles.row}>
-        <label>Travel Mode</label>
-        <select
-          value={mode}
-          onChange={(e) => setMode(e.target.value as TravelMode)}
+        <div className={styles.stepCard}>
+          <div className={styles.stepIcon}>📌</div>
+          <h3>Your destination?</h3>
+          <input
+            required
+            placeholder="Enter destination city"
+            value={values.to}
+            onChange={(e) => setValues({ ...values, to: e.target.value })}
+            className={styles.bigInput}
+          />
+        </div>
+
+        <div className={styles.stepCard}>
+          <div className={styles.stepIcon}>🚗</div>
+          <h3>How will you travel?</h3>
+          <div className={styles.modeGrid}>
+            {Object.keys(modeIcons).map((mode) => (
+              <div
+                key={mode}
+                className={`${styles.modeOption} ${
+                  values.travelMode === mode ? styles.modeActive : ""
+                }`}
+                onClick={() =>
+                  setValues({ ...values, travelMode: mode as TravelMode })
+                }
+              >
+                {modeIcons[mode as TravelMode]}
+                <span>{mode}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.stepCard}>
+          <div className={styles.stepIcon}>📅</div>
+          <h3>Trip Duration</h3>
+          <input
+            type="number"
+            min={1}
+            max={30}
+            value={values.days}
+            onChange={(e) =>
+              setValues({ ...values, days: Number(e.target.value) })
+            }
+            className={styles.bigInput}
+          />
+        </div>
+
+        <motion.button
+          type="button"
+          className={styles.nextBtn}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => onSubmit(values)}
         >
-          <option value="flight">Flight</option>
-          <option value="train">Train</option>
-          <option value="bus">Bus</option>
-          <option value="car">Car</option>
-        </select>
+          Generate My Adventure ✨
+        </motion.button>
       </div>
-
-      <div className={styles.row}>
-        <label>Number of days</label>
-        <input
-          type="number"
-          min={1}
-          max={30}
-          value={days}
-          onChange={(e) => setDays(Number(e.target.value))}
-        />
-      </div>
-
-      <div className={styles.row}>
-        <label>Other preferences</label>
-        <textarea
-          value={preferences}
-          onChange={(e) => setPreferences(e.target.value)}
-        />
-      </div>
-
-      <div className={styles.actions}>
-        <button type="submit" className={styles.submit}>
-          Generate Plan
-        </button>
-      </div>
-    </form>
+    </motion.div>
   );
 };
 

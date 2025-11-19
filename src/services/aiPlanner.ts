@@ -1,47 +1,48 @@
-import type { ItineraryInput, Itinerary, DayPlan } from '../types/itinerary.d'
+// This is a stubbed AI planner. Replace with real AI call (OpenAI, Azure, etc.).
+// This is a stubbed AI planner. Replace with real AI call (OpenAI, Azure, etc.).
+import type { Itinerary, DayPlan, TravelPreferences, TravelMode } from '../types/itinerary'
 
-// Dummy AI planner that returns a sample itinerary based on input
-export async function generateItinerary(input: ItineraryInput): Promise<Itinerary> {
-  // Simulate async latency
-  await new Promise((r) => setTimeout(r, 600))
+export async function generateItinerary(
+  from: string,
+  to: string,
+  mode: TravelMode,
+  days: number,
+  preferences?: TravelPreferences
+): Promise<Itinerary> {
+  // Simulate latency
+  await new Promise((r) => setTimeout(r, 800))
 
-  const days: DayPlan[] = []
-  for (let i = 1; i <= input.days; i++) {
-    const day: DayPlan = {
+  // Sample algorithmic generation — use real AI in production
+  const dayPlans: DayPlan[] = []
+  const baseHotel = (d: number) => `${to} Cozy Stay (night ${d})`
+
+  for (let i = 1; i <= days; i++) {
+    dayPlans.push({
       day: i,
-      date: undefined,
-      stay: {
-        name: `${input.to} Comfort Hotel - Day ${i}`,
-        address: `${i} Traveler St, ${input.to}`,
-        cost: 60 + (i % 3) * 20,
-      },
-      travel:
-        i === 1
-          ? {
-              from: input.from,
-              to: input.to,
-              mode: input.mode,
-              duration: input.mode === 'flight' ? '2h' : input.mode === 'train' ? '6h' : '8h',
-              cost: input.mode === 'flight' ? 120 : input.mode === 'train' ? 45 : 30,
-            }
-          : undefined,
-      sightseeing: [
-        `Top museum of ${input.to}`,
-        `City park and scenic lookout - ${input.to}`,
-        `Famous market in ${input.to}`,
+      stay: baseHotel(i),
+      travels: i === 1 ? [`Depart ${from} -> ${to} by ${mode}`] : [`Local travel in ${to}`],
+      activities: [
+        `Visit main attraction ${i}`,
+        `Short hidden-gem walk ${i}`,
+        ...(preferences?.mustVisit?.slice((i-1)%preferences.mustVisit.length, (i-1)%preferences.mustVisit.length + 1) || [])
       ],
-      food: [`Local breakfast spot`, `Popular lunch street`, `Comfort dinner place`],
-      dailyBudget: 100 + (i % 2) * 30,
-      notes: `Suggested pace: moderate. Preferences: ${JSON.stringify(input.preferences || {})}`,
-    }
-    days.push(day)
+      food: [
+        `Breakfast at popular café ${i}`,
+        `Dinner with local flavour ${i}`
+      ],
+      approximateCost: 50 + i * 20,
+    })
   }
 
-  const totalBudget = days.reduce((s, d) => s + (d.stay.cost || 0) + d.dailyBudget + (d.travel?.cost || 0), 0)
+  const totalEstimatedCost = dayPlans.reduce((s,d) => s + (d.approximateCost||0), 0)
 
   return {
-    input,
+    from,
+    to,
+    travelMode: mode,
     days,
-    totalBudget,
+    preferences,
+    dayPlans,
+    totalEstimatedCost
   }
 }
