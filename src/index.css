@@ -1,29 +1,59 @@
 :root {
-  --bg: #f6f9fb;
-  --card: #ffffff;
-  --muted: #6b8a98;
-  --accent-1: #7cc6ff; /* sky */
-  --accent-2: #ffd6a5; /* sunrise */
-  --accent-3: #b8e986; /* green */
+  /* Gamified Palette */
+  --bg-dark: #0f172a;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --bg-glass: rgba(15, 23, 42, 0.6);
+  
+  --primary: #6366f1; /* Indigo */
+  --primary-glow: rgba(99, 102, 241, 0.5);
+  
+  --accent-1: #ec4899; /* Pink */
+  --accent-2: #8b5cf6; /* Violet */
+  --accent-3: #10b981; /* Emerald */
+  --accent-4: #f59e0b; /* Amber */
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  --font-main: 'Outfit', system-ui, sans-serif;
 }
+
 * {
   box-sizing: border-box;
 }
-html,
-body,
-#root {
+
+html, body, #root {
   height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial;
-  background: linear-gradient(180deg, var(--bg), #eef7fb);
-  color: #113241;
+  width: 100%;
 }
 
-/* nice default for images */
-img {
-  max-width: 100%;
-  display: block;
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 25%);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-2);
 }

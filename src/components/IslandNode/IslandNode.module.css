@@ -1,0 +1,176 @@
+.nodeWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  perspective: 1200px; /* Increased perspective for better 3D */
+  z-index: 10;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+/* 3D SCENE */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-20deg) rotateY(20deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nodeWrapper:hover .scene {
+  transform: rotateX(-10deg) rotateY(45deg) scale(1.1);
+}
+
+/* GROUND BASE */
+.base {
+  position: absolute;
+  bottom: 20px; /* Lifted slightly */
+  left: 50%;
+  transform: translateX(-50%) rotateX(90deg);
+  width: 180px;
+  height: 180px;
+  background: #e2e8f0;
+  border-radius: 10px; /* Less rounded for "plot" look */
+  box-shadow: 
+    0 0 0 4px rgba(255,255,255,0.2), /* Highlight ring */
+    0 0 40px rgba(0,0,0,0.3);
+  transform-style: preserve-3d;
+}
+
+/* BIOME COLORS */
+.city .base { background: #64748b; border: 2px solid #475569; }
+.forest .base { background: #4ade80; border: 2px solid #22c55e; }
+.beach .base { background: #fde047; border: 2px solid #eab308; }
+.mountain .base { background: #cbd5e1; border: 2px solid #94a3b8; }
+
+/* 3D BUILDING (CUBE) */
+.building {
+  position: absolute;
+  bottom: 60px; /* Sit on top of base (20px bottom + perspective adjustments) */
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translateX(-50%);
+}
+
+.cube {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  background: rgba(255, 255, 255, 1); /* Solid opacity to prevent see-through */
+  border: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  backface-visibility: hidden; /* Hide backfaces for cleaner render */
+}
+
+/* Cube Faces */
+.front  { transform: rotateY(0deg) translateZ(30px); background: #f8fafc; }
+.back   { transform: rotateY(180deg) translateZ(30px); background: #f1f5f9; }
+.right  { transform: rotateY(90deg) translateZ(30px); width: 60px; background: #e2e8f0; }
+.left   { transform: rotateY(-90deg) translateZ(30px); width: 60px; background: #e2e8f0; }
+.top    { transform: rotateX(90deg) translateZ(30px); height: 60px; background: #cbd5e1; }
+.bottom { transform: rotateX(-90deg) translateZ(50px); height: 60px; background: #94a3b8; }
+
+/* ROOF */
+.roof {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid #ef4444;
+  transform: translateZ(30px); /* Align with front face */
+}
+
+/* HOTEL VARIANT */
+.hotel .cube { height: 140px; }
+.hotel .face { height: 140px; background: #bfdbfe; opacity: 0.95; border: 1px solid #60a5fa; }
+.hotel .roof { display: none; }
+.hotel .top { transform: rotateX(90deg) translateZ(30px); background: #93c5fd; }
+
+/* PARKED VEHICLE */
+.parkedVehicle {
+  position: absolute;
+  bottom: 30px;
+  right: 20px; /* Parked on the side */
+  width: 40px;
+  height: 20px;
+  background: #ef4444; /* Red Car */
+  border-radius: 4px;
+  transform: translateZ(20px) rotateY(-45deg);
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+  transform-style: preserve-3d;
+}
+
+.parkedVehicle::before { /* Roof */
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 5px;
+  width: 30px;
+  height: 10px;
+  background: #f87171;
+  border-radius: 2px;
+}
+
+/* INFO CARD (Permanent, not hover-only for better UX) */
+.infoCard {
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.1);
+  z-index: 100;
+  /* Always visible but subtle, pops on hover */
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.nodeWrapper:hover .infoCard {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.infoCard h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.infoCard p {
+  margin: 0;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.dayLabel {
+  position: absolute;
+  bottom: -50px;
+  background: #0f172a;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+  transform: translateZ(50px);
+}
