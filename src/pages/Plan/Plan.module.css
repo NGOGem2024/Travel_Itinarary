@@ -1,0 +1,45 @@
+.container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #073240;
+}
+
+.sub {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #6b8a98;
+}
+
+.summaryBox {
+  margin-top: 16px;
+  display: inline-block;
+  background: #eaf6ff;
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+  color: #073240;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* NEW — Zigzag list container */
+.zigzagList {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}

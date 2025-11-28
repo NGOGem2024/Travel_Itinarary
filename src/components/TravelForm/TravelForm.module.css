@@ -1,0 +1,96 @@
+.wrapper {
+  padding: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heading {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: #073240;
+}
+
+.subheading {
+  font-size: 15px;
+  color: #6b8a98;
+  margin-bottom: 28px;
+}
+
+/* NEW EXPERIENCE-STYLE UI */
+
+.flowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stepCard {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(6, 50, 58, 0.08);
+  border: 1px solid rgba(6, 50, 58, 0.05);
+  text-align: center;
+}
+
+.stepIcon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.bigInput {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(17, 50, 65, 0.15);
+  background: #f9fcff;
+  font-size: 15px;
+}
+
+.modeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modeOption {
+  padding: 12px;
+  border-radius: 14px;
+  background: #f3f8fd;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #073240;
+  border: 1px solid transparent;
+  transition: 0.25s;
+}
+
+.modeOption:hover {
+  background: #eaf4ff;
+}
+
+.modeActive {
+  border-color: var(--accent-1);
+  background: #e1f3ff;
+  box-shadow: 0 8px 20px rgba(124, 198, 255, 0.2);
+}
+
+.nextBtn {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #06323a;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 14px 30px rgba(124, 198, 255, 0.25);
+}

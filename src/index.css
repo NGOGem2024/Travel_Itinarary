@@ -1,0 +1,6 @@
+:root {
+  --heading: clamp(2rem, 5vw, 4rem);
+  --text: clamp(1rem, 3vw, 1.5rem);
+  --primary-color: #fe9e0d;
+  --text-color: #4c4c4c;
+}
