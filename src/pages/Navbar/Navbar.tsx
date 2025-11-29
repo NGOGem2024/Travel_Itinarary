@@ -17,6 +17,9 @@ import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 
+// ✅ IMPORT MODULE CSS
+import styles from "../Navbar/Navbar.module.css";
+
 interface MenuOption {
   text: string;
   icon: React.ReactNode;
@@ -41,27 +44,27 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav>
-      <div className="nav-logo-container">
-        <img src={Logo} alt="Logo" className="primary-subheading" />
+    <nav className={styles.nav}>
+      <div className={styles["nav-logo-container"]}>
+        <img src={Logo} alt="Logo" />
       </div>
 
       {/* DESKTOP NAV */}
-      <div className="navbar-links-container">
+      <div className={styles["navbar-links-container"]}>
         <a onClick={() => scrollToSection("home")}>Home</a>
         <a onClick={() => scrollToSection("about")}>About</a>
-        <a onClick={() => scrollToSection("work")}>Tours</a>
+        <a onClick={() => scrollToSection("gallery")}>Tours</a>
         <a onClick={() => scrollToSection("contact")}>Contact</a>
 
-        <button className="primary-button">Book Now</button>
+        <button className={styles["primary-button"]}>Book Now</button>
       </div>
 
       {/* MOBILE MENU BURGER */}
-      <div className="navbar-menu-container">
+      <div className={styles["navbar-menu-container"]}>
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
       </div>
 
-      {/* MOBILE MENU DRAWER */}
+      {/* MOBILE DRAWER */}
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
         <Box sx={{ width: 250 }} role="presentation">
           <List>

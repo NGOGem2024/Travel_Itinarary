@@ -1,20 +1,21 @@
 import React from "react";
 import ProfilePic from "../../assets/john-doe-image.png";
 import { AiFillStar } from "react-icons/ai";
+import styles from "./Testimonial.module.css";
 
 const Testimonial: React.FC = () => {
   return (
-    <div className="work-section-wrapper">
-      <div className="work-section-top">
-        <p className="primary-subheading">Testimonial</p>
-        <h1 className="primary-heading">What They Are Saying</h1>
-        <p className="primary-text">
+    <div className={styles.workSectionWrapper}>
+      <div className={styles.workSectionTop}>
+        <p className={styles.primarySubheading}>Testimonial</p>
+        <h1 className={styles.primaryHeading}>What They Are Saying</h1>
+        <p className={styles.primaryText}>
           Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
           elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
         </p>
       </div>
 
-      <div className="testimonial-section-bottom">
+      <div className={styles.testimonialSectionBottom}>
         <img src={ProfilePic} alt="Customer" />
 
         <p>
@@ -22,7 +23,7 @@ const Testimonial: React.FC = () => {
           elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
         </p>
 
-        <div className="testimonials-stars-container">
+        <div className={styles.testimonialsStarsContainer}>
           <AiFillStar />
           <AiFillStar />
           <AiFillStar />

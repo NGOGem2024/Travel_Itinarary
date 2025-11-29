@@ -1,0 +1,54 @@
+.workSectionWrapper {
+  margin-top: 15rem;
+}
+
+.workSectionTop {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.workSectionTop p {
+  max-width: 600px;
+}
+
+.workSectionBottom {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.workSectionInfo {
+  width: 290px;
+  min-height: 350px;
+  background-color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  margin: 1rem 2rem;
+  text-align: center;
+  color: #505050;
+}
+
+.workSectionInfo p {
+  font-weight: 600;
+}
+
+.infoBoxesImgContainer img {
+  max-width: 120px;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .workSectionWrapper {
+    margin-top: 5rem !important;
+  }
+
+  .workSectionBottom {
+    margin-top: 1rem !important;
+  }
+}

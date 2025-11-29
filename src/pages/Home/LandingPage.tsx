@@ -1,26 +1,29 @@
 import React from "react";
 import BannerBackground from "../../assets/home-banner-background.png";
 import BannerImage from "../../assets/home-banner-image5.png";
-import Navbar from "../Home/Navbar";
+import Navbar from "../Navbar/Navbar";
 import { FiArrowRight } from "react-icons/fi";
 
-import About from "./About";
-import Contact from "./Contact";
-import Footer from "./Footer";
+import About from "../About/About";
+import Contact from "../Contact/Contact";
+import Footer from "../Footer/Footer";
 import Gallary from "./Gallary";
-import Work from "./Work"
+import Work from "./Work";
+
+import styles from "../Home/LandingPage.module.css";
+
 const Land: React.FC = () => {
   return (
-    <div className="home-container">
+    <div className={styles.homeContainer}>
       <Navbar />
 
       {/* HERO SECTION */}
-      <div className="home-banner-container">
-        <div className="home-bannerImage-container">
+      <div className={styles.homeBannerContainer}>
+        <div className={styles.homeBannerImageContainer}>
           <img src={BannerBackground} alt="Banner Background" />
         </div>
 
-        <div className="home-text-section">
+        <div className={styles.homeTextSection}>
           <h1 className="primary-heading">Discover Your Next Adventure</h1>
 
           <p className="primary-text">Travel Before You Travel</p>
@@ -40,7 +43,7 @@ const Land: React.FC = () => {
           </button>
         </div>
 
-        <div className="home-image-section">
+        <div className={styles.homeImageSection}>
           <img src={BannerImage} alt="Banner" />
         </div>
       </div>
@@ -51,15 +54,14 @@ const Land: React.FC = () => {
       </section>
 
       <section id="work">
-        <Work/>
+        <Work />
       </section>
-      
 
       <section id="contact">
         <Contact />
       </section>
 
-      <section id="work">
+      <section id="gallery">
         <Gallary />
       </section>
 

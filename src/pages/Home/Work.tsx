@@ -3,6 +3,8 @@ import PickMeals from "../../assets/work1.png";
 import ChooseMeals from "../../assets/work2.png";
 import DeliveryMeals from "../../assets/work3.png";
 
+import styles from "./Work.module.css";
+
 interface WorkInfo {
   image: string;
   title: string;
@@ -29,8 +31,8 @@ const Work: React.FC = () => {
   ];
 
   return (
-    <div className="work-section-wrapper">
-      <div className="work-section-top">
+    <div className={styles.workSectionWrapper}>
+      <div className={styles.workSectionTop}>
         <p className="primary-subheading">Travel Itinerary</p>
         <h1 className="primary-heading">How It Works</h1>
         <p className="primary-text">
@@ -39,10 +41,10 @@ const Work: React.FC = () => {
         </p>
       </div>
 
-      <div className="work-section-bottom">
+      <div className={styles.workSectionBottom}>
         {workInfoData.map((data) => (
-          <div className="work-section-info" key={data.title}>
-            <div className="info-boxes-img-container">
+          <div className={styles.workSectionInfo} key={data.title}>
+            <div className={styles.infoBoxesImgContainer}>
               <img src={data.image} alt={data.title} />
             </div>
             <h2>{data.title}</h2>
