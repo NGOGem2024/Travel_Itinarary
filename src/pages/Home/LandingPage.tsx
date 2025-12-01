@@ -9,17 +9,20 @@ import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
 import Gallary from "./Gallary";
 import Work from "./Work";
-// import Testimonial from "./Testimonial";
+
 import styles from "../Home/LandingPage.module.css";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+
 const Land: React.FC = () => {
   const navigate = useNavigate();
+
   return (
     <div className={styles.homeContainer}>
       <Navbar />
 
-      
+      {/* Hero Section */}
       <div className={styles.homeBannerContainer}>
+        
         <div className={styles.homeBannerImageContainer}>
           <img src={BannerBackground} alt="Banner Background" />
         </div>
@@ -39,12 +42,13 @@ const Land: React.FC = () => {
             trip unforgettable.
           </p>
 
+          {/* Navigate to Travel Form */}
           <button
-      className="secondary-button"
-      onClick={() => navigate("/travelform")}
-    >
-      Start Exploring <FiArrowRight />
-    </button>
+            className="secondary-button"
+            onClick={() => navigate("/travelform")}
+          >
+            Start Exploring <FiArrowRight />
+          </button>
         </div>
 
         <div className={styles.homeImageSection}>
@@ -52,7 +56,7 @@ const Land: React.FC = () => {
         </div>
       </div>
 
-     
+      {/* Sections */}
       <section id="about">
         <About />
       </section>
@@ -60,10 +64,6 @@ const Land: React.FC = () => {
       <section id="work">
         <Work />
       </section>
-
-      {/* <section id="Testimonial">
-        <Testimonial />
-      </section> */}
 
       <section id="contact">
         <Contact />

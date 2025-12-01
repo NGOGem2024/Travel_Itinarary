@@ -6,32 +6,42 @@ import {
   FaCarSide,
   FaCalendarAlt,
   FaMapMarkerAlt,
+  FaCoins,
 } from "react-icons/fa";
 
 import styles from "./TravelForm.module.css";
+import { useNavigate } from "react-router-dom";
+import type { TravelMode } from "../../types/itinerary";
 
 export interface TravelFormValues {
   from: string;
   to: string;
-  travelMode: "bus" | "train" | "flight" | "car";
+  travelMode: TravelMode;
   days: number;
   budget?: string;
+  foodPreferences?: string;
+  mustVisit?: string;
+  comfort?: "low" | "medium" | "high";
+  apiKey?: string;
 }
 
-interface Props {
-  onSubmit(values: TravelFormValues): void;
-}
+const TravelForm: React.FC = () => {
+  const navigate = useNavigate();
 
-const TravelForm: React.FC<Props> = ({ onSubmit }) => {
-  const [values, setValues] = useState<TravelFormValues>({
-    from: "",
-    to: "",
-    travelMode: "train",
-    days: 3,
-    budget: "",
-  });
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [days, setDays] = useState(3);
+  const [travelMode, setTravelMode] = useState<TravelMode>("train");
+  const [budget, setBudget] = useState("Moderate");
+  const [interests, setInterests] = useState<string[]>([]);
+  const [mustVisit, setMustVisit] = useState("");
+  const [apiKey] = useState(import.meta.env.VITE_GEMINI_API_KEY || "");
 
-  const [focusedField, setFocusedField] = useState("");
+  const toggleInterest = (i: string) => {
+    setInterests((prev) =>
+      prev.includes(i) ? prev.filter((v) => v !== i) : [...prev, i]
+    );
+  };
 
   const modeIcons = {
     bus: <FaBus size={24} />,
@@ -40,19 +50,42 @@ const TravelForm: React.FC<Props> = ({ onSubmit }) => {
     car: <FaCarSide size={24} />,
   };
 
+  const handleSubmit = () => {
+    if (!from || !to) {
+      alert("Please enter start and destination");
+      return;
+    }
+
+    const comfort =
+      budget === "Luxury" ? "high" : budget === "Budget" ? "low" : "medium";
+
+    const formData: TravelFormValues = {
+      from,
+      to,
+      days,
+      travelMode,
+      budget,
+      foodPreferences: interests.includes("Food") ? "Yes" : "No",
+      mustVisit,
+      comfort,
+      apiKey,
+    };
+
+    navigate("/plan", { state: { formData } });
+  };
+
   return (
     <div className={styles.fullScreenWrapper}>
       <div className={styles.container}>
 
-        {/* LEFT HERO SECTION */}
+        {/* LEFT SECTION */}
         <div className={styles.leftSection}>
           <div className={styles.heroContent}>
             <div className={styles.badge}>✈️ AI Powered</div>
 
             <h1 className={styles.mainHeading}>
               Your Dream <br />
-              <span className={styles.gradient}>Adventure</span> <br />
-              Awaits
+              <span className={styles.gradient}>Adventure</span> <br /> Awaits
             </h1>
 
             <p className={styles.heroSubtext}>
@@ -64,174 +97,145 @@ const TravelForm: React.FC<Props> = ({ onSubmit }) => {
         {/* RIGHT FORM SECTION */}
         <div className={styles.formSection}>
           <div className={styles.formCard}>
+            
+            <h2 className={styles.heading}>Plan Your Journey</h2>
+            <p className={styles.subheading}>Enter details to generate itinerary</p>
 
-            {/* Header */}
-            <div className={styles.formHeader}>
-              <h2 className={styles.heading}>Plan Your Journey</h2>
-              <p className={styles.subheading}>
-                Fill in your travel details and let AI create a perfect itinerary
-              </p>
-            </div>
-
-            {/* Form Body */}
             <div className={styles.formBody}>
 
-              {/* FROM + TO FIELDS */}
+              {/* FROM + TO */}
               <div className={styles.grid}>
-                
-                {/* From */}
                 <div className={styles.inputGroup}>
                   <label className={styles.label}>
-                    <FaMapMarkerAlt className={styles.labelIcon} />
-                    Starting Point
+                    <FaMapMarkerAlt /> Starting Point
                   </label>
-
                   <input
-                    type="text"
+                    className={styles.input}
                     placeholder="e.g., Mumbai"
-                    value={values.from}
-                    onChange={(e) =>
-                      setValues({ ...values, from: e.target.value })
-                    }
-                    onFocus={() => setFocusedField("from")}
-                    onBlur={() => setFocusedField("")}
-                    className={`${styles.input} ${
-                      focusedField === "from" ? styles.inputFocused : ""
-                    }`}
+                    value={from}
+                    onChange={(e) => setFrom(e.target.value)}
                   />
                 </div>
 
-                {/* To */}
                 <div className={styles.inputGroup}>
                   <label className={styles.label}>
-                    <FaMapMarkerAlt className={styles.labelIcon} />
-                    Destination
+                    <FaMapMarkerAlt /> Destination
                   </label>
-
                   <input
-                    type="text"
+                    className={styles.input}
                     placeholder="e.g., Paris"
-                    value={values.to}
-                    onChange={(e) =>
-                      setValues({ ...values, to: e.target.value })
-                    }
-                    onFocus={() => setFocusedField("to")}
-                    onBlur={() => setFocusedField("")}
-                    className={`${styles.input} ${
-                      focusedField === "to" ? styles.inputFocused : ""
-                    }`}
+                    value={to}
+                    onChange={(e) => setTo(e.target.value)}
                   />
                 </div>
               </div>
 
-              {/* DAYS + SLIDER */}
+              {/* DAYS */}
               <div className={styles.grid}>
-
-                {/* Days Selector */}
                 <div className={styles.inputGroup}>
                   <label className={styles.label}>
-                    <FaCalendarAlt className={styles.labelIcon} />
-                    Trip Duration
+                    <FaCalendarAlt /> Trip Duration
                   </label>
 
                   <div className={styles.daysSelector}>
-                    <button
-                      type="button"
-                      className={styles.daysBtn}
-                      onClick={() =>
-                        setValues({
-                          ...values,
-                          days: Math.max(1, values.days - 1),
-                        })
-                      }
-                    >
-                      −
-                    </button>
-
+                    <button className={styles.daysBtn} onClick={() => setDays(Math.max(1, days - 1))}>−</button>
                     <div className={styles.daysDisplay}>
-                      <span className={styles.daysNumber}>{values.days}</span>
-                      <span className={styles.daysLabel}>days</span>
+                      <span className={styles.daysNumber}>{days}</span>
+                      <span>days</span>
                     </div>
-
-                    <button
-                      type="button"
-                      className={styles.daysBtn}
-                      onClick={() =>
-                        setValues({
-                          ...values,
-                          days: Math.min(30, values.days + 1),
-                        })
-                      }
-                    >
-                      +
-                    </button>
+                    <button className={styles.daysBtn} onClick={() => setDays(Math.min(30, days + 1))}>+</button>
                   </div>
                 </div>
 
-                {/* Slider */}
                 <div className={styles.inputGroup}>
                   <label className={styles.label}>Adjust Duration</label>
-
-                  <div className={styles.sliderWrapper}>
-                    <input
-                      type="range"
-                      min="1"
-                      max="30"
-                      value={values.days}
-                      onChange={(e) =>
-                        setValues({
-                          ...values,
-                          days: Number(e.target.value),
-                        })
-                      }
-                      className={styles.brightnessSlider}
-                    />
-
-                    <div className={styles.brightnessValue}>
-                      {values.days} days
-                    </div>
-                  </div>
+                  <input
+                    type="range"
+                    min={1}
+                    max={30}
+                    value={days}
+                    onChange={(e) => setDays(Number(e.target.value))}
+                    className={styles.brightnessSlider}
+                  />
                 </div>
               </div>
 
-              {/* TRAVEL MODE SELECTION */}
+              {/* TRAVEL MODE */}
               <div className={styles.inputGroup}>
                 <label className={styles.label}>Preferred Travel Mode</label>
 
                 <div className={styles.modeGrid}>
-                  {Object.keys(modeIcons).map((mode) => (
+                  {Object.keys(modeIcons).map((m) => (
                     <div
-                      key={mode}
+                      key={m}
                       className={`${styles.modeOption} ${
-                        values.travelMode === mode ? styles.modeActive : ""
+                        travelMode === m ? styles.modeActive : ""
                       }`}
-                      onClick={() =>
-                        setValues({
-                          ...values,
-                          travelMode: mode as TravelFormValues["travelMode"],
-                        })
-                      }
+                      onClick={() => setTravelMode(m as TravelMode)}
                     >
-                      {modeIcons[mode as keyof typeof modeIcons]}
-                      <span className={styles.modeLabel}>
-                        {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                      </span>
+                      {modeIcons[m as keyof typeof modeIcons]}
+                      <span>{m}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              
+              {/* BUDGET */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}><FaCoins /> Budget Type</label>
 
-            </div> 
-            
-          </div>
-          {/* SUBMIT BUTTON */}
-              <div className={styles.floatingBtnWrapper}>
-                <button type="button" className={styles.floatingBtn}>
-                  Generate My Itinerary
-                </button>
+                <select
+                  className={styles.input}
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                >
+                  <option value="Budget">Budget (Backpacker)</option>
+                  <option value="Moderate">Moderate (Explorer)</option>
+                  <option value="Luxury">Luxury (Royal)</option>
+                </select>
               </div>
+
+              {/* MUST VISIT */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Must-Visit Places</label>
+
+                <input
+                  className={styles.input}
+                  placeholder="e.g., Eiffel Tower, Louvre"
+                  value={mustVisit}
+                  onChange={(e) => setMustVisit(e.target.value)}
+                />
+              </div>
+
+              {/* INTERESTS */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Interests</label>
+
+                <div className={styles.interestsGrid}>
+                  {["Nature", "History", "Food", "Adventure", "Relaxation", "Culture"].map((i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={`${styles.interestBtn} ${
+                        interests.includes(i) ? styles.active : ""
+                      }`}
+                      onClick={() => toggleInterest(i)}
+                    >
+                      {i}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* SUBMIT BUTTON */}
+          <div className={styles.floatingBtnWrapper}>
+            <button className={styles.floatingBtn} onClick={handleSubmit}>
+              Generate My Itinerary
+            </button>
+          </div>
         </div>
 
       </div>

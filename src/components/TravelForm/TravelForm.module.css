@@ -1,6 +1,4 @@
-/* ------------------------------
-   ROOT WRAPPER
---------------------------------*/
+
 .fullScreenWrapper {
   width: 100vw;
   min-height: 100vh;
@@ -19,9 +17,6 @@
   background-attachment: fixed;
 }
 
-/* ------------------------------
-   MAIN 2-COLUMN CONTAINER
---------------------------------*/
 .container {
   display: flex;
   gap: 3rem;
@@ -29,9 +24,6 @@
   width: 100%;
 }
 
-/* ------------------------------
-   LEFT HERO SECTION
---------------------------------*/
 .leftSection {
   flex: 1;
   display: flex;
@@ -69,9 +61,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* ------------------------------
-   RIGHT FORM CARD
---------------------------------*/
+
 .formSection {
   flex: 1;
 }
@@ -96,9 +86,6 @@
   margin-bottom: 1.8rem;
 }
 
-/* ------------------------------
-   FORM GRID
---------------------------------*/
 .grid {
   display: grid;
   gap: 1.7rem;
@@ -110,9 +97,6 @@
   }
 }
 
-/* ------------------------------
-   INPUT GROUP
---------------------------------*/
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -144,9 +128,6 @@
   box-shadow: 0 0 10px rgba(254, 158, 13, 0.3);
 }
 
-/* ------------------------------
-   TRAVEL MODE (SINGLE LINE)
---------------------------------*/
 .modeGrid {
   display: flex;
   flex-wrap: nowrap;
@@ -194,9 +175,6 @@
   box-shadow: 0 8px 18px rgba(254,158,13,0.25);
 }
 
-/* ------------------------------
-   DAYS SELECTOR
---------------------------------*/
 .daysSelector {
   margin-top: 0.6rem;
   display: flex;
@@ -254,9 +232,6 @@
   line-height: 1;
 }
 
-/* ------------------------------
-   SLIDER
---------------------------------*/
 .sliderWrapper {
   margin-top: 0.6rem;
 }
@@ -304,12 +279,12 @@
 }
 
 .floatingBtn {
-  padding: 0.65rem 1.6rem;      /* smaller height + smaller width */
-  background: white;          /* solid theme color */
+  padding: 0.65rem 1.6rem;      
+  background: white;          
   color: #fe9e0d;
 
   border: 2px solid #fe9e0d;
-  border-radius: 6px;           /* square edges */
+  border-radius: 6px;           
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -330,7 +305,7 @@
   transform: scale(0.97);
 }
 
-/* FORCE STACKING ON MOBILE */
+
 @media (max-width: 850px) {
   .container {
     flex-direction: column !important;
@@ -350,5 +325,76 @@
 
   .formCard {
     width: 100%;
+  }
+}
+
+.interestsGrid {
+  display: flex;
+  gap: 8px;
+  margin-top: 0.4rem;
+
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 6px;
+
+  scroll-behavior: smooth;
+}
+
+.interestsGrid::-webkit-scrollbar {
+  height: 5px;
+}
+
+.interestsGrid::-webkit-scrollbar-thumb {
+  background: #fe9e0d;
+  border-radius: 10px;
+}
+
+.interestBtn {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+
+  border-radius: 20px;
+  border: 2px solid #ddd;
+  background: #fff;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+  user-select: none;
+
+  white-space: nowrap; 
+}
+
+.interestBtn:hover {
+  border-color: #fe9e0d;
+  background: #fff4dd;
+}
+
+.active {
+  background: #fe9e0d !important;
+  color: white !important;
+  border-color: #fe9e0d !important;
+  box-shadow: 0 4px 12px rgba(254, 158, 13, 0.35);
+}
+.primary-heading {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #4c4c4c;
+  max-width: 600px;
+}
+
+.primary-text {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #6a6a6a;
+  margin: 1.5rem 0;
+}
+
+
+@media (max-width: 600px) {
+  .interestBtn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
