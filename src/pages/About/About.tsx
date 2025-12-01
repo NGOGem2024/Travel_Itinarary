@@ -23,11 +23,13 @@ const About: React.FC = () => {
         <h1 className="primary-heading">How We Are Best For Travel !</h1>
 
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et elit.
+          We help travelers discover unforgettable destinations with personalized trip planning, 
+  trusted guidance, and seamless booking support.
         </p>
 
         <p className="primary-text">
-          Non tincidunt magna non et elit. Dolor turpis molestie dui magnis.
+          From budget-friendly tours to luxury escapes, our team ensures every journey is safe, 
+  smooth, and crafted exactly the way you imagine.
         </p>
 
         <div className={styles.aboutButtonsContainer}>
