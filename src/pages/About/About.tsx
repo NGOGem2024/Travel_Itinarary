@@ -17,7 +17,7 @@ const About: React.FC = () => {
       </div>
 
       <div className={styles.aboutSectionTextContainer}>
-        {/* GLOBAL CSS */}
+       
         <p className="primary-subheading">About</p>
 
         <h1 className="primary-heading">How We Are Best For Travel !</h1>
@@ -31,7 +31,7 @@ const About: React.FC = () => {
         </p>
 
         <div className={styles.aboutButtonsContainer}>
-          {/* GLOBAL BUTTON */}
+          
           <button className="secondary-button">Learn More</button>
 
           <button className={`${styles.watchVideoButton}`}>

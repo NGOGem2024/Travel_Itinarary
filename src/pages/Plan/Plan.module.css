@@ -33,8 +33,6 @@
   color: #073240;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
 }
-
-/* NEW — Zigzag list container */
 .zigzagList {
   margin-top: 40px;
   display: flex;

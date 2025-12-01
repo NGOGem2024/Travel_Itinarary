@@ -23,7 +23,6 @@ body {
   margin: 0 auto;
 }
 
-/* GLOBAL BUTTONS */
 .primary-button {
   padding: 0.9rem 1.75rem;
   background-color: white;
@@ -60,7 +59,6 @@ body {
   background-color: #e48f0f;
 }
 
-/* TYPOGRAPHY GLOBAL */
 .primary-heading {
   font-size: clamp(2rem, 5vw, 4rem);
   color: #4c4c4c;
@@ -78,4 +76,20 @@ body {
   font-weight: 700;
   color: #fe9e0d;
   font-size: 1.15rem;
+}
+
+@media (max-width: 768px) {
+  .secondary-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .secondary-button {
+    padding: 0.6rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 2rem;
+  }
 }

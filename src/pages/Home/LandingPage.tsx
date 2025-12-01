@@ -9,16 +9,16 @@ import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
 import Gallary from "./Gallary";
 import Work from "./Work";
-
+// import Testimonial from "./Testimonial";
 import styles from "../Home/LandingPage.module.css";
-import {Link,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 const Land: React.FC = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.homeContainer}>
       <Navbar />
 
-      {/* HERO SECTION */}
+      
       <div className={styles.homeBannerContainer}>
         <div className={styles.homeBannerImageContainer}>
           <img src={BannerBackground} alt="Banner Background" />
@@ -52,7 +52,7 @@ const Land: React.FC = () => {
         </div>
       </div>
 
-      {/* SCROLL SECTIONS */}
+     
       <section id="about">
         <About />
       </section>
@@ -60,6 +60,10 @@ const Land: React.FC = () => {
       <section id="work">
         <Work />
       </section>
+
+      {/* <section id="Testimonial">
+        <Testimonial />
+      </section> */}
 
       <section id="contact">
         <Contact />

@@ -41,14 +41,3 @@
 .infoBoxesImgContainer img {
   max-width: 120px;
 }
-
-/* Mobile */
-@media (max-width: 800px) {
-  .workSectionWrapper {
-    margin-top: 5rem !important;
-  }
-
-  .workSectionBottom {
-    margin-top: 1rem !important;
-  }
-}

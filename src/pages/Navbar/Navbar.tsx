@@ -17,9 +17,9 @@ import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 
-// ✅ IMPORT MODULE CSS
+
 import styles from "../Navbar/Navbar.module.css";
-import {Link,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 interface MenuOption {
   text: string;
   icon: React.ReactNode;

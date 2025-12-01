@@ -29,7 +29,6 @@
   font-size: 1.15rem;
 }
 
-/* Buttons inside About */
 .aboutButtonsContainer {
   display: flex;
   margin-top: 2rem;
@@ -52,144 +51,33 @@
   margin-right: 1rem;
 }
 
-/* MOBILE */
-@media (max-width: 800px) {
-  .aboutSectionContainer {
-    flex-direction: column;
-    margin-top: 5rem !important;
-  }
-
-  .aboutSectionTextContainer {
-    align-items: center;
-    margin-top: 4rem;
-  }
-
-  .aboutButtonsContainer {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .watchVideoButton {
-    margin-left: 0;
-    margin-top: 1rem;
-  }
-
+@media (max-width: 480px) {
   .aboutSectionImageContainer {
-    margin-right: 0 !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .aboutBackgroundImageContainer {
     display: none;
   }
-}
-/* =======================================================
-   SAME RESPONSIVE BEHAVIOR AS HOME BANNER
-   - Hide image on ≤900px
-   - Show yellow background instead
-========================================================= */
-
-/* Tablets & Mobile */
-@media (max-width: 900px) {
-
-  /* Hide background decorative image */
-  .aboutBackgroundImageContainer {
-    display: none !important;
-  }
-
-  /* Apply yellow background (same as home) */
-  .aboutSectionContainer {
-    background-color: #fe9e0d !important;   /* SAME YELLOW */
-    background-image: none !important;
-
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    padding: 3rem 1.5rem;
-    margin-top: 8rem !important;
-    border-radius: 16px;
-  }
-
-  .aboutSectionTextContainer {
-    align-items: center;
-    margin-top: 2.5rem;
-  }
-
-  .aboutSectionImageContainer {
-    display: none;  /* hide main illustration image too */
-  }
-
-  .aboutButtonsContainer {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-}
-
-/* Small Phones */
-@media (max-width: 600px) {
-  .aboutSectionContainer {
-    padding: 2rem 1.2rem;
-    border-radius: 12px;
-  }
-}
-
-/* Extra Small Phones */
-@media (max-width: 380px) {
-  .aboutSectionContainer {
-    padding: 1.4rem 1rem;
-  }
-}
-/* ================================================================
-   MOBILE + SMALL TABLETS FIX (≤ 600px)
-   Buttons side-by-side + smaller font + proper spacing
-================================================================ */
-@media (max-width: 600px) {
-
-  /* Keep buttons side by side */
-  .aboutButtonsContainer {
-    flex-direction: row !important;
+  .watchVideoButton {
+    font-size: 0.95rem;
+    margin-left: 0;
+    padding: 0.5rem 1rem;
     justify-content: center;
-    align-items: center;
-    gap: 0.8rem;
-    width: 100%;
-    margin-top: 1.8rem;
   }
 
-  /* Make buttons smaller */
-  .aboutButtonsContainer button,
-  .watchVideoButton {
-    font-size: 0.85rem !important;
-    padding: 0.55rem 1rem !important;
-  }
-
-  /* Make the video icon smaller */
   .watchVideoButton svg {
-    font-size: 2rem !important;
-    margin-right: 0.5rem !important;
-  }
-
-  /* Center text in this section */
-  .aboutSectionTextContainer {
-    text-align: center;
+    font-size: 2rem;
+    margin-right: 0.5rem;
   }
 }
-
-
-/* ================================================================
-   VERY SMALL PHONES FIX (≤ 400px)
-================================================================ */
-@media (max-width: 400px) {
-
-  .aboutButtonsContainer button,
+@media (max-width: 768px) {
+  .aboutSectionImageContainer {
+    display: none;
+  }
   .watchVideoButton {
-    font-size: 0.78rem !important;
-    padding: 0.45rem 0.9rem !important;
+    font-size: 1rem;
+    margin-left: 1rem;
   }
 
   .watchVideoButton svg {
-    font-size: 1.7rem !important;
+    font-size: 2.4rem;
+    margin-right: 0.7rem;
   }
 }

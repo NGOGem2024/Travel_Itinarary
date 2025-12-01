@@ -1,16 +1,12 @@
 import React from "react";
 import LightGallery from "lightgallery/react";
-
-// LightGallery core styles
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
 
-// Plugins
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 
-// Module CSS
 import styles from "../Home/Gallary.module.css";
 
 const GalleryComp: React.FC = () => {
