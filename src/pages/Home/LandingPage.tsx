@@ -11,8 +11,9 @@ import Gallary from "./Gallary";
 import Work from "./Work";
 
 import styles from "../Home/LandingPage.module.css";
-
+import {Link,useNavigate} from "react-router-dom"
 const Land: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.homeContainer}>
       <Navbar />
@@ -38,9 +39,12 @@ const Land: React.FC = () => {
             trip unforgettable.
           </p>
 
-          <button className="secondary-button">
-            Start Exploring <FiArrowRight />
-          </button>
+          <button
+      className="secondary-button"
+      onClick={() => navigate("/travelform")}
+    >
+      Start Exploring <FiArrowRight />
+    </button>
         </div>
 
         <div className={styles.homeImageSection}>

@@ -19,7 +19,7 @@ import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 
 // ✅ IMPORT MODULE CSS
 import styles from "../Navbar/Navbar.module.css";
-
+import {Link,useNavigate} from "react-router-dom"
 interface MenuOption {
   text: string;
   icon: React.ReactNode;
@@ -27,6 +27,7 @@ interface MenuOption {
 }
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   const scrollToSection = (id: string) => {
@@ -56,7 +57,7 @@ const Navbar: React.FC = () => {
         <a onClick={() => scrollToSection("gallery")}>Tours</a>
         <a onClick={() => scrollToSection("contact")}>Contact</a>
 
-        <button className={styles["primary-button"]}>Book Now</button>
+        <button className={styles["primary-button"]}onClick={() => navigate("/travelform")}>Book Now</button>
       </div>
 
       {/* MOBILE MENU BURGER */}

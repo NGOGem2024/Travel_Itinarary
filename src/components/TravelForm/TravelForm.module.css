@@ -1,96 +1,354 @@
-.wrapper {
-  padding: 20px;
-  max-width: 520px;
-  margin: 0 auto;
-  text-align: center;
+/* ------------------------------
+   ROOT WRAPPER
+--------------------------------*/
+.fullScreenWrapper {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: calc(50% - 50vw);
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)),
+
+    url("../../assets/TravelFormBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ------------------------------
+   MAIN 2-COLUMN CONTAINER
+--------------------------------*/
+.container {
+  display: flex;
+  gap: 3rem;
+  max-width: 1300px;
+  width: 100%;
+}
+
+/* ------------------------------
+   LEFT HERO SECTION
+--------------------------------*/
+.leftSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.heroContent {
+  color: white;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.mainHeading {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.gradient {
+  color: #fe9e0d;
+}
+
+.heroSubtext {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+/* ------------------------------
+   RIGHT FORM CARD
+--------------------------------*/
+.formSection {
+  flex: 1;
+}
+
+.formCard {
+  background: #ffffff;
+  padding: 2.5rem 3rem;
+  border-radius: 22px;
+  border: 1px solid #fe9e0d;
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .heading {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 6px;
-  color: #073240;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.4rem;
 }
 
 .subheading {
-  font-size: 15px;
-  color: #6b8a98;
-  margin-bottom: 28px;
+  color: #555;
+  margin-bottom: 1.8rem;
 }
 
-/* NEW EXPERIENCE-STYLE UI */
+/* ------------------------------
+   FORM GRID
+--------------------------------*/
+.grid {
+  display: grid;
+  gap: 1.7rem;
+}
 
-.flowContainer {
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ------------------------------
+   INPUT GROUP
+--------------------------------*/
+.inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
-.stepCard {
-  background: #ffffff;
-  padding: 22px;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(6, 50, 58, 0.08);
-  border: 1px solid rgba(6, 50, 58, 0.05);
-  text-align: center;
+.label {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.stepIcon {
-  font-size: 32px;
-  margin-bottom: 8px;
+.input {
+  margin-top: 0.45rem;
+  margin-bottom: 1.05rem;
+  padding: 0.85rem 1rem;
+  border: 2px solid #e6e6e6;
+  border-radius: 12px;
+  background: white;
+  font-size: 1rem;
+  transition: 0.2s;
 }
 
-.bigInput {
-  margin-top: 8px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(17, 50, 65, 0.15);
-  background: #f9fcff;
-  font-size: 15px;
+.inputFocused {
+  border-color: #fe9e0d !important;
+  box-shadow: 0 0 10px rgba(254, 158, 13, 0.3);
 }
 
+/* ------------------------------
+   TRAVEL MODE (SINGLE LINE)
+--------------------------------*/
 .modeGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.8rem;
+  margin-top: 0.7rem;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+}
+
+.modeGrid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.modeGrid::-webkit-scrollbar-thumb {
+  background: #fe9e0d;
+  border-radius: 10px;
 }
 
 .modeOption {
-  padding: 12px;
+  min-width: 120px;
+  padding: 0.9rem;
+  border: 2px solid #ddd;
+  background: rgba(255,255,255,0.8);
   border-radius: 14px;
-  background: #f3f8fd;
+  text-align: center;
   cursor: pointer;
+  transition: 0.25s;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
-  color: #073240;
-  border: 1px solid transparent;
-  transition: 0.25s;
 }
 
 .modeOption:hover {
-  background: #eaf4ff;
+  border-color: #fe9e0d;
+  transform: translateY(-3px);
 }
 
 .modeActive {
-  border-color: var(--accent-1);
-  background: #e1f3ff;
-  box-shadow: 0 8px 20px rgba(124, 198, 255, 0.2);
+  border-color: #fe9e0d;
+  background: #fff5e5;
+  color: #fe9e0d;
+  box-shadow: 0 8px 18px rgba(254,158,13,0.25);
 }
 
-.nextBtn {
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  border: none;
-  padding: 16px;
+/* ------------------------------
+   DAYS SELECTOR
+--------------------------------*/
+.daysSelector {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #fe9e0d;
   border-radius: 16px;
-  font-size: 16px;
+  background: #fff8e9;
+  overflow: hidden;
+  height: 52px;
+  box-shadow: 0 3px 12px rgba(254, 158, 13, 0.25);
+}
+
+.daysBtn {
+  width: 52px;
+  height: 100%;
+  background: #fe9e0d;
+  color: white;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #06323a;
   cursor: pointer;
-  margin-top: 10px;
-  box-shadow: 0 14px 30px rgba(124, 198, 255, 0.25);
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+}
+
+.daysBtn:hover {
+  background: #e68c00;
+  transform: scale(1.05);
+}
+
+.daysDisplay {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: white;
+  height: 100%;
+}
+
+.daysNumber {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fe9e0d;
+  line-height: 1;
+}
+
+.daysLabel {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1;
+}
+
+/* ------------------------------
+   SLIDER
+--------------------------------*/
+.sliderWrapper {
+  margin-top: 0.6rem;
+}
+
+.brightnessSlider {
+  width: 100%;
+  margin-top: 13px;
+  height: 10px;
+  appearance: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(to right, #ffd8a0, #fe9e0d);
+}
+
+.brightnessSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: #fe9e0d;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(254, 158, 13, 0.5);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.brightnessSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.brightnessValue {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+  color: #333;
+}
+.floatingBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -25px;      
+  position: relative;
+  z-index: 10;
+}
+
+.floatingBtn {
+  padding: 0.65rem 1.6rem;      /* smaller height + smaller width */
+  background: white;          /* solid theme color */
+  color: #fe9e0d;
+
+  border: 2px solid #fe9e0d;
+  border-radius: 6px;           /* square edges */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  letter-spacing: 0.3px;
+  
+  box-shadow: 0 4px 12px rgba(254, 158, 13, 0.35);
+  transition: 0.2s ease;
+}
+
+.floatingBtn:hover {
+  background: #e68d00;
+  color: #e6e6e6;
+  transform: translateY(-2px);
+}
+
+.floatingBtn:active {
+  transform: scale(0.97);
+}
+
+/* FORCE STACKING ON MOBILE */
+@media (max-width: 850px) {
+  .container {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .leftSection {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .formSection {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .formCard {
+    width: 100%;
+  }
 }
