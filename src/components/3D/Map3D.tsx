@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useScroll, Line, Billboard } from '@react-three/drei';
+import { useScroll, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { Island, Building, Vehicle, StartMarker, EndMarker, HistoryMarker, FoodMarker, CafeMarker, TourismMarker, NatureMarker, Sun, CloudGroup, Rain } from './Assets';
 import { Signboard, Tree, Rock, Bush, Airport, BackgroundScenery } from './EnhancedAssets';
@@ -177,13 +177,12 @@ const SceneContent: React.FC<Props> = ({ plans, onDayChange, totalPages = plans.
                <NatureMarker key={`nature-${idx}`} position={[3, 0.5, -3 + idx * 0.6]} />
             ))}
 
-            <Billboard position={[3.5, 0, 2]} follow={true} lockX={true} lockY={false} lockZ={true}>
-              <Signboard 
-                position={[0, 0, 0]} 
-                text={`Day ${plan.day}`}
-                subtext={plan.location || plan.stay}
-              />
-            </Billboard>
+            {/* Surface-mounted signboard - no Billboard, attached to island */}
+            <Signboard 
+              position={[2, 0, 1.5]} 
+              text={`Day ${plan.day}`}
+              subtext={plan.location || plan.stay}
+            />
             
             {!hasAirport && (
               <>

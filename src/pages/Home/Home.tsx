@@ -81,7 +81,108 @@ const Home: React.FC = () => {
             exit={{ opacity: 0 }}
           >
             <div className={styles.loader}>
-              <span>Crafting Your Legend...</span>
+              {/* Animated Travel Icons */}
+              <div className={styles.travelIcons}>
+                <motion.div 
+                  className={styles.iconPlane}
+                  animate={{ 
+                    x: [0, 100, 0],
+                    y: [0, -20, 0],
+                    rotate: [0, 10, 0]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  ✈️
+                </motion.div>
+                
+                <motion.div 
+                  className={styles.iconGlobe}
+                  animate={{ rotate: 360 }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                >
+                  🌍
+                </motion.div>
+                
+                <motion.div 
+                  className={styles.iconCompass}
+                  animate={{ 
+                    rotate: [0, 15, -15, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  🧭
+                </motion.div>
+              </div>
+
+              {/* Dynamic Loading Text */}
+              <motion.div className={styles.loadingText}>
+                <motion.span
+                  key="text"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  Crafting Your Perfect Journey...
+                </motion.span>
+              </motion.div>
+
+              {/* Progress Bar */}
+              <div className={styles.progressBar}>
+                <motion.div 
+                  className={styles.progressFill}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ 
+                    duration: 8,
+                    ease: "easeInOut"
+                  }}
+                />
+              </div>
+
+              {/* Loading Steps */}
+              <motion.div className={styles.loadingSteps}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2, times: [0, 0.2, 0.8, 1], repeat: Infinity }}
+                >
+                  🗺️ Analyzing destinations...
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2, times: [0, 0.2, 0.8, 1], repeat: Infinity, delay: 2 }}
+                >
+                  🏨 Finding best accommodations...
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2, times: [0, 0.2, 0.8, 1], repeat: Infinity, delay: 4 }}
+                >
+                  🎯 Planning activities...
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2, times: [0, 0.2, 0.8, 1], repeat: Infinity, delay: 6 }}
+                >
+                  ✨ Finalizing your itinerary...
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         )}

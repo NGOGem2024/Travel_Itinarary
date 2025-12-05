@@ -17,7 +17,7 @@ export interface DayPlan {
   food?: string[]
   approximateCost?: number
   biome?: 'city' | 'countryside' | 'beach' | 'mountain' | 'forest'
-  coordinates?: { x: number; y: number }
+  coordinates?: { lat: number; lng: number }
   weather?: string
   pois?: {
     tourism?: string[];
@@ -34,6 +34,10 @@ export interface Itinerary {
   from: string
   to: string
   destination?: string
+  coordinates?: {
+    start: { lat: number; lng: number }
+    end: { lat: number; lng: number }
+  }
   travelMode: TravelMode
   days: number
   startDate?: string

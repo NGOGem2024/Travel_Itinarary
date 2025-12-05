@@ -1,8 +1,18 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import {
+  FaBus,
+  FaTrain,
+  FaPlaneDeparture,
+  FaCarSide,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaCoins,
+} from "react-icons/fa";
+
 import styles from "./TravelForm.module.css";
-import { FaMapMarkerAlt, FaCalendarAlt, FaCoins, FaUserFriends } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import type { TravelMode } from "../../types/itinerary";
+import { generateItinerary } from "../../services/aiPlanner";
 
 export interface TravelFormValues {
   from: string;
@@ -16,189 +26,261 @@ export interface TravelFormValues {
   apiKey?: string;
 }
 
-interface Props {
-  onSubmit(values: TravelFormValues): void;
+
+interface TravelFormProps {
+  onSubmit?: (values: TravelFormValues) => Promise<void>;
 }
 
-const TravelForm: React.FC<Props> = ({ onSubmit }) => {
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [travelMode, setTravelMode] = useState<TravelMode>("car");
-  const [days, setDays] = useState(7);
+const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => {
+  const navigate = useNavigate();
+
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [days, setDays] = useState(3);
+  const [travelMode, setTravelMode] = useState<TravelMode>("train");
   const [budget, setBudget] = useState("Moderate");
-  const [travelers, setTravelers] = useState(1);
   const [interests, setInterests] = useState<string[]>([]);
+  const [mustVisit, setMustVisit] = useState("");
   const [apiKey] = useState(import.meta.env.VITE_GEMINI_API_KEY || "");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate API call or processing
-    setTimeout(() => {
-      setLoading(false);
-      onSubmit({
-        from: origin,
-        to: destination,
-        travelMode: travelMode,
-        days: days,
-        budget: budget,
-        foodPreferences: interests.includes("Food") ? "Yes" : "",
-        mustVisit: "",
-        comfort: budget === "Luxury" ? "high" : budget === "Budget" ? "low" : "medium",
-        apiKey: apiKey
-      });
-    }, 1500);
-  };
-
-  const toggleInterest = (interest: string) => {
+  const toggleInterest = (i: string) => {
     setInterests((prev) =>
-      prev.includes(interest)
-        ? prev.filter((item) => item !== interest)
-        : [...prev, interest]
+      prev.includes(i) ? prev.filter((v) => v !== i) : [...prev, i]
     );
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
+  const modeIcons = {
+    bus: <FaBus size={24} />,
+    train: <FaTrain size={24} />,
+    flight: <FaPlaneDeparture size={24} />,
+    car: <FaCarSide size={24} />,
+  };
+
+  const handleSubmit = async () => {
+    if (!from || !to) {
+      alert("Please enter start and destination");
+      return;
+    }
+
+    // setLoading(true);
+
+    try {
+      const comfort =
+        budget === "Luxury" ? "high" : budget === "Budget" ? "low" : "medium";
+
+      const formData: TravelFormValues = {
+        from,
+        to,
+        days,
+        travelMode,
+        budget,
+        foodPreferences: interests.includes("Food") ? "Yes" : "No",
+        mustVisit,
+        comfort,
+        apiKey,
+      };
+  // Use parent's onSubmit if provided (Home.tsx controls loading)
+      if (parentOnSubmit) {
+        await parentOnSubmit(formData);
+        return;
+      }
+       // Standalone mode - handle submission internally
+      setLoading(true);
+      const itinerary = await generateItinerary(
+        from,
+        to,
+        travelMode,
+        days,
+        {
+          budget,
+          foodPreferences: interests.includes("Food") ? "Yes" : "No",
+          mustVisit: mustVisit ? [mustVisit] : [],
+          comfort,
+        },
+        apiKey
+      );
+
+      navigate("/plan", { state: { formData, itinerary } });
+    } catch (error) {
+      console.error("Failed to generate itinerary:", error);
+      alert("Failed to generate itinerary. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
-  };
-
   return (
-    <motion.div
-      className={styles.formContainer}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <motion.h2 variants={itemVariants} className={styles.title}>
-        Start Your Quest 🌍
-      </motion.h2>
+    <div className={styles.fullScreenWrapper}>
+      <div className={styles.container}>
 
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Start Location</label>
-          <div className={styles.inputWrapper}>
-            <FaMapMarkerAlt className={styles.icon} />
-            <input
-              type="text"
-              placeholder="Where are you starting from?"
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              required
-            />
+        {/* LEFT SECTION */}
+        <div className={styles.leftSection}>
+          <div className={styles.heroContent}>
+            <div className={styles.badge}>✈️ AI Powered</div>
+
+            <h1 className={styles.mainHeading}>
+              Your Dream <br />
+              <span className={styles.gradient}>Adventure</span> <br /> Awaits
+            </h1>
+
+            <p className={styles.heroSubtext}>
+              Smart itineraries crafted by AI — personalized to your journey.
+            </p>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Destination</label>
-          <div className={styles.inputWrapper}>
-            <FaMapMarkerAlt className={styles.icon} />
-            <input
-              type="text"
-              placeholder="Where to, traveler?"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              required
-            />
+        {/* RIGHT FORM SECTION */}
+        <div className={styles.formSection}>
+          <div className={styles.formCard}>
+            
+            <h2 className={styles.heading}>Plan Your Journey</h2>
+            <p className={styles.subheading}>Enter details to generate itinerary</p>
+
+            <div className={styles.formBody}>
+
+              {/* FROM + TO */}
+              <div className={styles.grid}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>
+                    <FaMapMarkerAlt /> Starting Point
+                  </label>
+                  <input
+                    className={styles.input}
+                    placeholder="e.g., Mumbai"
+                    value={from}
+                    onChange={(e) => setFrom(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>
+                    <FaMapMarkerAlt /> Destination
+                  </label>
+                  <input
+                    className={styles.input}
+                    placeholder="e.g., Paris"
+                    value={to}
+                    onChange={(e) => setTo(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* DAYS */}
+              <div className={styles.grid}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>
+                    <FaCalendarAlt /> Trip Duration
+                  </label>
+
+                  <div className={styles.daysSelector}>
+                    <button className={styles.daysBtn} onClick={() => setDays(Math.max(1, days - 1))}>−</button>
+                    <div className={styles.daysDisplay}>
+                      <span className={styles.daysNumber}>{days}</span>
+                      <span>days</span>
+                    </div>
+                    <button className={styles.daysBtn} onClick={() => setDays(Math.min(30, days + 1))}>+</button>
+                  </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Adjust Duration</label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={30}
+                    value={days}
+                    onChange={(e) => setDays(Number(e.target.value))}
+                    className={styles.brightnessSlider}
+                  />
+                </div>
+              </div>
+
+              {/* TRAVEL MODE */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Preferred Travel Mode</label>
+
+                <div className={styles.modeGrid}>
+                  {Object.keys(modeIcons).map((m) => (
+                    <div
+                      key={m}
+                      className={`${styles.modeOption} ${
+                        travelMode === m ? styles.modeActive : ""
+                      }`}
+                      onClick={() => setTravelMode(m as TravelMode)}
+                    >
+                      {modeIcons[m as keyof typeof modeIcons]}
+                      <span>{m}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* BUDGET */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}><FaCoins /> Budget Type</label>
+
+                <select
+                  className={styles.input}
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                >
+                  <option value="Budget">Budget (Backpacker)</option>
+                  <option value="Moderate">Moderate (Explorer)</option>
+                  <option value="Luxury">Luxury (Royal)</option>
+                </select>
+              </div>
+
+              {/* MUST VISIT */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Must-Visit Places</label>
+
+                <input
+                  className={styles.input}
+                  placeholder="e.g., Eiffel Tower, Louvre"
+                  value={mustVisit}
+                  onChange={(e) => setMustVisit(e.target.value)}
+                />
+              </div>
+
+              {/* INTERESTS */}
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Interests</label>
+
+                <div className={styles.interestsGrid}>
+                  {["Nature", "History", "Food", "Adventure", "Relaxation", "Culture"].map((i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={`${styles.interestBtn} ${
+                        interests.includes(i) ? styles.active : ""
+                      }`}
+                      onClick={() => toggleInterest(i)}
+                    >
+                      {i}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
-        </motion.div>
 
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Duration (Days)</label>
-          <div className={styles.inputWrapper}>
-            <FaCalendarAlt className={styles.icon} />
-            <input
-              type="number"
-              min="1"
-              max="30"
-              value={days}
-              onChange={(e) => setDays(parseInt(e.target.value))}
-              required
-            />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Travel Mode</label>
-          <div className={styles.inputWrapper}>
-            <FaMapMarkerAlt className={styles.icon} /> {/* Reuse icon or add new one */}
-            <select 
-              value={travelMode} 
-              onChange={(e) => setTravelMode(e.target.value as TravelMode)}
-              required
+          {/* SUBMIT BUTTON */}
+          <div className={styles.floatingBtnWrapper}>
+            <button 
+              className={styles.floatingBtn} 
+              onClick={handleSubmit}
+              disabled={loading}
+              style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
             >
-              <option value="car">Car</option>
-              <option value="bus">Bus</option>
-              <option value="train">Train</option>
-              <option value="flight">Flight</option>
-            </select>
+              {loading ? "Generating Itinerary..." : "Generate My Itinerary"}
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Budget</label>
-          <div className={styles.inputWrapper}>
-            <FaCoins className={styles.icon} />
-            <select value={budget} onChange={(e) => setBudget(e.target.value)} required>
-              <option value="Budget">Budget (Backpacker)</option>
-              <option value="Moderate">Moderate (Explorer)</option>
-              <option value="Luxury">Luxury (Royal)</option>
-            </select>
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Travelers</label>
-          <div className={styles.inputWrapper}>
-            <FaUserFriends className={styles.icon} />
-            <input
-              type="number"
-              min="1"
-              value={travelers}
-              onChange={(e) => setTravelers(parseInt(e.target.value))}
-              required
-            />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className={styles.inputGroup}>
-          <label>Interests</label>
-          <div className={styles.interestsGrid}>
-            {['Nature', 'History', 'Food', 'Adventure', 'Relaxation', 'Culture'].map((interest) => (
-              <button
-                key={interest}
-                type="button"
-                className={`${styles.interestBtn} ${interests.includes(interest) ? styles.active : ''}`}
-                onClick={() => toggleInterest(interest)}
-              >
-                {interest}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-
-
-
-        <motion.button
-          type="submit"
-          className={styles.submitBtn}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          disabled={loading}
-        >
-          {loading ? "Summoning Itinerary..." : "Launch Adventure 🚀"}
-        </motion.button>
-      </form>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 

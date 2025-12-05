@@ -19,6 +19,7 @@ interface VehicleProps {
   position: [number, number, number];
   rotation: [number, number, number];
   color: string;
+  scale?: [number, number, number] | number;
 }
 
 // --- COMPONENTS ---
@@ -79,9 +80,9 @@ export const Building: React.FC<BuildingProps> = ({ position, type, color }) => 
 
 // --- VEHICLES ---
 
-export const Vehicle = React.forwardRef<THREE.Group, VehicleProps & { type?: 'car' | 'bus' | 'train' | 'flight' }>(({ position, rotation, color, type = 'car' }, ref) => {
+export const Vehicle = React.forwardRef<THREE.Group, VehicleProps & { type?: 'car' | 'bus' | 'train' | 'flight' }>(({ position, rotation, color, scale = 1, type = 'car' }, ref) => {
   return (
-    <group position={position} rotation={rotation} ref={ref}>
+    <group position={position} rotation={rotation} scale={scale} ref={ref}>
       {type === 'car' && (
         <>
           <mesh castShadow position={[0, 0.4, 0]}>

@@ -40,6 +40,7 @@ CRITICAL REQUIREMENTS:
      * "nature": Parks, beaches, hiking trails
    - "weather": Realistic for location and season (sunny, cloudy, rainy, partly cloudy)
    - "biome": Accurate (city, beach, mountain, forest, countryside)
+   - "coordinates": { "lat": number, "lng": number } (Approximate coordinates for the location)
 
 Budget: ${budget}
 Interests: ${interests.join(", ")}
@@ -49,6 +50,10 @@ Return ONLY valid JSON (no markdown):
   "id": "trip-${Date.now()}",
   "title": "${days}-Day ${origin} to ${destination} Adventure",
   "destination": "${destination}",
+  "coordinates": {
+    "start": { "lat": 19.0760, "lng": 72.8777 },
+    "end": { "lat": 40.7128, "lng": -74.0060 }
+  },
   "startDate": "2024-06-01",
   "endDate": "2024-06-${String(days).padStart(2, '0')}",
   "dayPlans": [
@@ -56,6 +61,7 @@ Return ONLY valid JSON (no markdown):
       "day": 1,
       "date": "2024-06-01",
       "location": "Mumbai Airport / In Transit",
+      "coordinates": { "lat": 19.099, "lng": 72.875 },
       "stay": "Flight to New York",
       "activities": ["Check-in at Mumbai Airport", "Board flight to JFK", "In-flight entertainment"],
       "travels": ["Taxi to Mumbai Airport", "Flight AI-191 to JFK New York"],
@@ -73,6 +79,7 @@ Return ONLY valid JSON (no markdown):
       "day": 2,
       "date": "2024-06-02",
       "location": "New York City, USA",
+      "coordinates": { "lat": 40.7128, "lng": -74.0060 },
       "stay": "The Jane Hotel, Manhattan",
       "activities": ["Arrive at JFK", "Check-in to hotel", "Evening walk in Times Square", "Dinner at local diner"],
       "travels": ["Land at JFK Airport", "Taxi to Manhattan hotel"],

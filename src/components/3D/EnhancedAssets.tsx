@@ -9,42 +9,50 @@ interface SignboardProps {
 
 export const Signboard: React.FC<SignboardProps> = ({ position, text, subtext }) => (
   <group position={position}>
-    {/* Post - Taller */}
-    <mesh position={[0, 2, 0]}>
-      <cylinderGeometry args={[0.2, 0.2, 4, 8]} />
+    {/* Compact Surface-Mounted Sign - No tall post */}
+    
+    {/* Base platform */}
+    <mesh position={[0, 0.05, 0]}>
+      <cylinderGeometry args={[0.8, 0.9, 0.1, 8]} />
       <meshStandardMaterial color="#78350f" />
     </mesh>
-    {/* Sign board - Even larger */}
-    <mesh position={[0, 4.5, 0]} rotation={[0, 0, 0]}>
-      <boxGeometry args={[6, 2, 0.2]} />
+    
+    {/* Sign board - Compact and low to ground */}
+    <mesh position={[0, 0.4, 0]} rotation={[0, 0, 0]}>
+      <boxGeometry args={[2.5, 0.8, 0.1]} />
       <meshStandardMaterial color="#1e293b" />
     </mesh>
+    
     {/* Border */}
-    <mesh position={[0, 4.5, 0.11]} rotation={[0, 0, 0]}>
-      <boxGeometry args={[5.8, 1.8, 0.05]} />
+    <mesh position={[0, 0.4, 0.06]} rotation={[0, 0, 0]}>
+      <boxGeometry args={[2.4, 0.7, 0.05]} />
       <meshStandardMaterial color="#fbbf24" />
     </mesh>
-    {/* Text - Large white text */}
+    
+    {/* Text - Smaller, readable text */}
     <Text
-      position={[0, 4.8, 0.16]}
+      position={[0, 0.5, 0.11]}
       rotation={[0, 0, 0]}
-      fontSize={0.7}
+      fontSize={0.25}
       color="#ffffff"
       anchorX="center"
       anchorY="middle"
-      maxWidth={5.5}
+      maxWidth={2.2}
+      font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff"
     >
       {text}
     </Text>
+    
     {subtext && (
       <Text
-        position={[0, 4.2, 0.16]}
+        position={[0, 0.25, 0.11]}
         rotation={[0, 0, 0]}
-        fontSize={0.4}
+        fontSize={0.15}
         color="#e2e8f0"
         anchorX="center"
         anchorY="middle"
-        maxWidth={5.5}
+        maxWidth={2.2}
+        font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff"
       >
         {subtext}
       </Text>
