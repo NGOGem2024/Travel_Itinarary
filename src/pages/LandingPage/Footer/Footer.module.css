@@ -1,0 +1,58 @@
+.footerWrapper {
+  margin: 10rem 0 6rem 0;
+  display: flex;
+}
+
+.footerSectionOne {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLogoContainer {
+  max-width: 250px;
+}
+
+.footerIcons {
+  margin-top: 2.5rem;
+}
+
+.footerIcons svg {
+  font-size: 1.5rem;
+  margin-right: 1.25rem;
+  color: #585858;
+}
+
+.footerSectionTwo {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footerSectionColumns {
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footerSectionColumns span {
+  margin: 0.25rem 0;
+  font-weight: 600;
+  color: #4c4c4c;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .footerWrapper {
+    flex-direction: column;
+  }
+
+  .footerSectionTwo {
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  .footerSectionColumns {
+    margin: 1rem 0;
+  }
+}
