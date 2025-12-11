@@ -47,7 +47,7 @@ console.log("🤖 Debug: extractTravelDetails() called");
     
     Return ONLY raw JSON, no markdown formatting.
   `;
-console.log("📤 Debug: Prompt Sent To Gemini:", prompt);
+// console.log("📤 Debug: Prompt Sent To Gemini:", prompt);
     try {
         
         const result = await model.generateContent(prompt);

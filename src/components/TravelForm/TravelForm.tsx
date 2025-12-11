@@ -18,9 +18,6 @@ import { generateItinerary } from "../../services/aiPlanner";
 import GeoapifyAutocomplete from "./GeoapifyAutocomplete";
 import VoiceOverlay from "../VoiceOverlay/VoiceOverlay";
 
-// NOTE: Gemini SDK is still used ONLY for text extraction (cheap & required)
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
 export interface TravelFormValues {
   from: string;
   to: string;
@@ -54,7 +51,6 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
 
-  // ⭐ Toggle Interest
   const toggleInterest = (i: string) => {
     setInterests((prev) =>
       prev.includes(i) ? prev.filter((v) => v !== i) : [...prev, i]
@@ -68,7 +64,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     car: <FaCarSide size={24} />,
   };
 
-  // ⭐ Auto-fill Form
+
   const autoFillForm = (data: any) => {
     console.log("📝 Debug: Applying auto-fill with data:", data);
     if (data.from) setFrom(data.from);
@@ -84,9 +80,6 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     }
   };
 
-  // ------------------------------------------------------
-  // ⭐ FREE Browser Speech Recognition (Web Speech API)
-  // ------------------------------------------------------
   const startRecording = () => {
     console.log("🎤 Debug: startRecording() triggered");
     setError(null);
@@ -139,9 +132,6 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     recognition.start();
   };
 
-  // ------------------------------------------------------
-  // ⭐ Submit Handler
-  // ------------------------------------------------------
   const handleSubmit = async () => {
     if (!from || !to) {
       setError("Please enter both a starting point and a destination.");
@@ -194,9 +184,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     }
   };
 
-  // ---------------------------------------------------------------
-  // UI
-  // ---------------------------------------------------------------
+  
   return (
     <div className={styles.fullScreenWrapper}>
       <div className={styles.container}>

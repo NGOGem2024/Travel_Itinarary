@@ -25,8 +25,7 @@ import TokyoImg from "../../assets/Tokyo.jpg";
 const GalleryComp: React.FC = () => {
   const onInit = () => {
     console.log("lightGallery has been initialized");
-    // console.log("Debugg: ", import.meta.env.VITE_GEMINI_API_KEY);
-    // console.log("Debugg: ", import.meta.env.VITE_GEOAPIFY_API_KEY);
+    
   };
 
   return (
