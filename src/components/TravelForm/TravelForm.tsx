@@ -8,6 +8,9 @@ import {
   FaMapMarkerAlt,
   FaCoins,
   FaMicrophone,
+  FaKeyboard,
+  FaMagic,
+  FaBrain
 } from "react-icons/fa";
 
 import styles from "./TravelForm.module.css";
@@ -50,6 +53,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
   const [error, setError] = useState<string | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [activeOption, setActiveOption] = useState<"voice" | "form" | null>(null);
 
   const toggleInterest = (i: string) => {
     setInterests((prev) =>
@@ -63,7 +67,6 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     flight: <FaPlaneDeparture size={24} />,
     car: <FaCarSide size={24} />,
   };
-
 
   const autoFillForm = (data: any) => {
     console.log("📝 Debug: Applying auto-fill with data:", data);
@@ -82,6 +85,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
 
   const startRecording = () => {
     console.log("🎤 Debug: startRecording() triggered");
+    setActiveOption("voice");
     setError(null);
     setTranscript("");
     setIsListening(true);
@@ -89,7 +93,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     const SpeechRecognition =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
-      console.log("🎤 Debug: SpeechRecognition Support =", !!SpeechRecognition);
+    console.log("🎤 Debug: SpeechRecognition Support =", !!SpeechRecognition);
 
     if (!SpeechRecognition) {
       setError("Speech Recognition is not supported in this browser.");
@@ -104,8 +108,9 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
 
     console.log("🎤 Debug: Recognition initialized, starting...");
     recognition.onstart = () => {
-    console.log("🎤 Debug: Listening started...");
-  };
+      console.log("🎤 Debug: Listening started...");
+    };
+    
     recognition.onresult = async (event: any) => {
       const text = event.results[0][0].transcript;
       setTranscript(text);
@@ -130,6 +135,10 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     };
 
     recognition.start();
+  };
+
+  const handleFocusOnForm = () => {
+    setActiveOption("form");
   };
 
   const handleSubmit = async () => {
@@ -184,28 +193,75 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
     }
   };
 
-  
   return (
     <div className={styles.fullScreenWrapper}>
       <div className={styles.container}>
-        
         {/* LEFT SECTION */}
         <div className={styles.leftSection}>
           <div className={styles.heroContent}>
-            <div className={styles.badge}>🎤 Voice + AI Powered</div>
+            <div className={styles.badge}>🚀 AI Travel Assistant</div>
 
             <h1 className={styles.mainHeading}>
-              Your Dream <br />
-              <span className={styles.gradient}>Adventure</span> <br /> Awaits
+              Plan Your Perfect <br />
+              <span className={styles.getaway}>Getaway</span> <br />
+              Your Way
             </h1>
 
             <p className={styles.heroSubtext}>
-              Speak or type your travel plan — let AI handle the rest.
+              Choose how you want to plan - speak naturally or fill in details. 
+              Our AI understands both and creates personalized itineraries instantly.
             </p>
+
+            {/* Interactive Options Cards */}
+            <div className={styles.optionHighlights}>
+              <div 
+                className={styles.optionCard}
+                onClick={startRecording}
+                onMouseEnter={() => setActiveOption("voice")}
+                onMouseLeave={() => setActiveOption(null)}
+                style={{
+                  borderColor: activeOption === "voice" ? "#fe9e0d" : undefined,
+                  transform: activeOption === "voice" ? "translateY(-8px)" : undefined
+                }}
+              >
+                <div className={styles.optionIcon}>
+                  <FaMicrophone />
+                </div>
+                <h3 className={styles.optionTitle}>Speak Your Plan</h3>
+                <p className={styles.optionDesc}>
+                  "I want to go from Delhi to Goa for 5 days with adventure activities"
+                </p>
+              </div>
+
+              <div 
+                className={styles.optionCard}
+                onClick={handleFocusOnForm}
+                onMouseEnter={() => setActiveOption("form")}
+                onMouseLeave={() => setActiveOption(null)}
+                style={{
+                  borderColor: activeOption === "form" ? "#fe9e0d" : undefined,
+                  transform: activeOption === "form" ? "translateY(-8px)" : undefined
+                }}
+              >
+                <div className={styles.optionIcon}>
+                  <FaKeyboard />
+                </div>
+                <h3 className={styles.optionTitle}>Fill Details</h3>
+                <p className={styles.optionDesc}>
+                  Prefer traditional form? Fill in specific preferences and get precise results
+                </p>
+              </div>
+            </div>
+
+            {/* Feature Highlight */}
+            <div className={styles.choiceTag}>
+              <FaMagic /> 
+              <span>Pro Tip:</span> Start with voice for quick setup, then refine with form details
+            </div>
           </div>
         </div>
 
-        {/* RIGHT SECTION */}
+        {/* RIGHT SECTION - Form */}
         <div className={styles.formSection}>
           <div className={styles.formCard}>
             
@@ -224,24 +280,36 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
               </div>
             )}
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h2 className={styles.heading}>Plan Your Journey</h2>
+            <div className={styles.headerRow}>
+              <h2 className={styles.heading}>
+                Plan Your Journey
+              </h2>
 
-              {/* MIC BUTTON */}
-              <button
-                className={`${styles.micBtn} ${isListening ? styles.listening : ""}`}
-                onClick={startRecording}
-                title="Use Voice Input"
-              >
-                <FaMicrophone color="white" size={18} />
-              </button>
+              <div className={styles.voiceHint}>
+                <span className={styles.hintText}>
+                  {isListening ? "Listening... Speak now!" : "Tap Mic to Speak"}
+                </span>
+
+                <button
+                  className={`${styles.micBtn} ${isListening ? styles.listening : ""}`}
+                  onClick={startRecording}
+                  title="Speak your travel plan"
+                >
+                  <FaMicrophone color="white" size={20} />
+                </button>
+              </div>
             </div>
 
-            <p className={styles.subheading}>
-              {isListening ? "Listening..." : "Enter details or tap mic to speak"}
-            </p>
-
             {error && <div className={styles.errorMessage}>⚠️ {error}</div>}
+
+            {/* Voice Active Indicator */}
+            {isListening && (
+              <div className={styles.voiceActive}>
+                <FaBrain style={{ marginRight: '10px', color: '#fe9e0d' }} />
+                <strong>Listening...</strong> Speak your travel plan clearly. Example: 
+                "I want to go from Mumbai to Paris for 7 days with luxury budget"
+              </div>
+            )}
 
             {/* FROM + TO */}
             <div className={styles.grid}>
@@ -362,7 +430,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
                 cursor: loading ? "not-allowed" : "pointer",
               }}
             >
-              {loading ? "Generating Itinerary..." : "Generate My Itinerary"}
+              {loading ? "🎯 Crafting Your Perfect Plan..." : "Generate My Dream Itinerary"}
             </button>
           </div>
         </div>
