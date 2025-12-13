@@ -38,3 +38,15 @@
     text-align: center !important;
   }
 }
+.inputField {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  padding: 0.5rem 1rem;
+  resize: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}

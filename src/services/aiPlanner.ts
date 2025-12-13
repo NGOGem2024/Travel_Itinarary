@@ -1,24 +1,35 @@
+// aiPlanner.ts
 // This is a stubbed AI planner. Replace with real AI call (OpenAI, Azure, etc.).
-// This is a stubbed AI planner. Replace with real AI call (OpenAI, Azure, etc.).
-import type { Itinerary, DayPlan, TravelPreferences, TravelMode } from '../types/itinerary'
 
-import { generateGeminiItinerary } from './gemini';
+import type { Itinerary, DayPlan, TravelPreferences, TravelMode } from "../types/itinerary";
+import { generateGeminiItinerary } from "./gemini";
 
+/**
+ * FINAL CORRECT FUNCTION SIGNATURE
+ */
 export async function generateItinerary(
   from: string,
   to: string,
   mode: TravelMode,
   days: number,
-  preferences?: TravelPreferences,
+  preferences: {
+    budget: string;
+    foodPreferences: string;
+    mustVisit: string[];
+    comfort: "high" | "low" | "medium";
+  },
+  interests: string[],
   apiKey?: string
 ): Promise<Itinerary> {
-  // If API Key is provided, use Real AI
+  
+  // If API Key exists → use Gemini AI
   if (apiKey) {
     try {
-      const interests = [
-        ...(preferences?.foodPreferences ? [`Food: ${preferences.foodPreferences}`] : []),
-        ...(preferences?.mustVisit || []),
-        ...(preferences?.comfort ? [`Comfort Level: ${preferences.comfort}`] : [])
+      const interestTags = [
+        ...(preferences.foodPreferences ? [`Food: ${preferences.foodPreferences}`] : []),
+        ...(preferences.mustVisit || []),
+        ...(preferences.comfort ? [`Comfort Level: ${preferences.comfort}`] : []),
+        ...interests,
       ];
 
       const itinerary = await generateGeminiItinerary(
@@ -27,11 +38,10 @@ export async function generateItinerary(
         to,
         mode,
         days,
-        preferences?.budget || 'Moderate',
-        interests
+        preferences.budget,
+        interestTags
       );
 
-      // Merge with local data if needed (e.g. ensure travelMode is set)
       return {
         ...itinerary,
         from,
@@ -40,44 +50,38 @@ export async function generateItinerary(
         days,
         preferences
       };
-    } catch (error) {
-      console.error("❌ AI GENERATION FAILED:", error);
-      console.error("Falling back to mock data...");
-      // Fallback to mock generation below
+    } catch (err) {
+      console.error("❌ AI GENERATION FAILED:", err);
+      console.log("⚠️ Falling back to mock itinerary...");
     }
   }
 
-  // Simulate latency
-  await new Promise((r) => setTimeout(r, 800))
+  // --- FALLBACK MOCK ITINERARY ---
+  await new Promise((r) => setTimeout(r, 600));
 
-  // Sample algorithmic generation — use real AI in production
-  const dayPlans: DayPlan[] = []
-  const baseHotel = (d: number) => `${to} Cozy Stay (night ${d})`
+  const dayPlans: DayPlan[] = [];
+  const hotel = (d: number) => `${to} Comfort Stay (Night ${d})`;
 
   for (let i = 1; i <= days; i++) {
-    // Simple deterministic biome based on day index
-    const biomes: ('city' | 'countryside' | 'beach' | 'mountain' | 'forest')[] = ['city', 'forest', 'mountain', 'beach', 'countryside'];
-    const biome = biomes[(i - 1) % biomes.length];
-
     dayPlans.push({
       day: i,
-      stay: baseHotel(i),
-      travels: i === 1 ? [`Depart ${from} -> ${to} by ${mode}`] : [`Local travel in ${to}`],
+      stay: hotel(i),
+      travels: i === 1 ? [`Travel from ${from} → ${to} by ${mode}`] : [`Explore ${to}`],
       activities: [
-        `Visit main attraction ${i}`,
-        `Short hidden-gem walk ${i}`,
-        ...(preferences?.mustVisit?.slice((i - 1) % preferences.mustVisit.length, (i - 1) % preferences.mustVisit.length + 1) || [])
+        `Explore main attraction ${i}`,
+        `Hidden gem discovery`,
+        ...(preferences.mustVisit?.length
+          ? [preferences.mustVisit[(i - 1) % preferences.mustVisit.length]]
+          : []),
       ],
       food: [
-        `Breakfast at popular café ${i}`,
-        `Dinner with local flavour ${i}`
+        `Breakfast at Café ${i}`,
+        `Local cuisine dinner`
       ],
-      approximateCost: 50 + i * 20,
-      biome,
-    })
+      approximateCost: 100 + i * 40,
+      biome: "city"
+    });
   }
-
-  const totalEstimatedCost = dayPlans.reduce((s, d) => s + (d.approximateCost || 0), 0)
 
   return {
     from,
@@ -86,6 +90,9 @@ export async function generateItinerary(
     days,
     preferences,
     dayPlans,
-    totalEstimatedCost
-  }
+    totalEstimatedCost: dayPlans.reduce(
+      (sum, d) => sum + (d.approximateCost ?? 0), // ✅ FIX HERE
+      0
+    )
+  };
 }

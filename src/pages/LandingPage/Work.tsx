@@ -31,7 +31,7 @@ const Work: React.FC = () => {
   ];
 
   return (
-    <div className={styles.workSectionWrapper}>
+    <div id="work" className={styles.workSectionWrapper}>
       <div className={styles.workSectionTop}>
         <p className="primary-subheading">Travel Itinerary</p>
         <h1 className="primary-heading">How It Works</h1>

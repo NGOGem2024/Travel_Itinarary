@@ -27,3 +27,9 @@
         column-count: 3;
     }
 }
+
+@media (max-width: 480px) {
+  .hideImg {
+    display: none !important;
+  }
+}

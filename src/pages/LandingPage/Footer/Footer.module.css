@@ -20,8 +20,12 @@
   font-size: 1.5rem;
   margin-right: 1.25rem;
   color: #585858;
+  cursor: pointer;
 }
-
+.footerIcons svg:hover {
+  color: #fe9e0d; 
+  transform: translateY(-2px);
+}
 .footerSectionTwo {
   flex: 1;
   display: flex;
@@ -33,7 +37,9 @@
   display: flex;
   flex-direction: column;
 }
-
+.footerSectionColumns :hover{
+  color: #fe9e0d;
+}
 .footerSectionColumns span {
   margin: 0.25rem 0;
   font-weight: 600;

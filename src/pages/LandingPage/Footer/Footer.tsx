@@ -15,11 +15,20 @@ const Footer: React.FC = () => {
         </div>
 
         <div className={styles.footerIcons}>
-          <BsTwitter />
-          <SiLinkedin />
-          <BsYoutube />
-          <FaFacebookF />
-        </div>
+  <BsTwitter
+    onClick={() => window.open("https://twitter.com", "_blank")}
+  />
+  <SiLinkedin
+    onClick={() => window.open("https://www.linkedin.com", "_blank")}
+  />
+  <BsYoutube
+    onClick={() => window.open("https://www.youtube.com", "_blank")}
+  />
+  <FaFacebookF
+    onClick={() => window.open("https://www.facebook.com", "_blank")}
+  />
+</div>
+
       </div>
 
       <div className={styles.footerSectionTwo}>

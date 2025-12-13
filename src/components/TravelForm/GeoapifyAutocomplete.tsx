@@ -37,7 +37,6 @@ const GeoapifyAutocomplete: React.FC<Props> = ({
     const res = await fetch(url);
     const data = await res.json();
 
-    // IMPORTANT: Tell TypeScript what type data.features is
     setSuggestions((data.features || []) as GeoapifyFeature[]);
   };
 

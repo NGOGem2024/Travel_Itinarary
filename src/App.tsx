@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Plan from "./pages/Plan/Plan";
-
+import Work from "./pages/LandingPage/Work"
 import "./App.css";
 import TravelForm from "./components/TravelForm/TravelForm";
 import LandingPage from "./pages/LandingPage/LandingPage";
+
 // import TravelForm from "./components/TravelForm/TravelForm";
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         } } />} /> */}
         <Route path="/travelform" element={<TravelForm />} />
         <Route path="/plan" element={<Plan />} />
+        <Route path="/work" element={<Work />} />
       </Routes>
     </div>
   );

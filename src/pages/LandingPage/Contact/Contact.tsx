@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Contact.module.css";
 
 const Contact: React.FC = () => {
+  const [message, setMessage] = useState("");
+
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=shraddhah1104@gmail.com&su=User Query&body=${encodeURIComponent(
+    message
+  )}`;
+
   return (
     <div className={styles.contactPageWrapper}>
       <h1 className={styles.primaryHeading}>Have Question In Mind?</h1>
@@ -9,12 +15,22 @@ const Contact: React.FC = () => {
 
       <div className={styles.contactFormContainer}>
         <input
-          type="email"
-          placeholder="yourmail@gmail.com"
+          type="text"
+          placeholder="Ask your question here..."
           className={styles.inputField}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
 
-        <button className="secondary-button">Submit</button>
+        
+        <a
+            href={gmailLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="secondary-button"
+          >
+            Submit
+        </a>
 
       </div>
     </div>

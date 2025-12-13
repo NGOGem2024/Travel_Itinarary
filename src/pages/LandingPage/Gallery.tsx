@@ -70,8 +70,9 @@ const GalleryComp: React.FC = () => {
           </a>
 
           <a href={TokyoImg}>
-            <img className={styles.galleryImage} alt="Tokyo" src={TokyoImg} />
-          </a>
+  <img className={`${styles.galleryImage} ${styles.hideImg}`} alt="Tokyo" src={TokyoImg} />
+</a>
+
         </LightGallery>
       </div>
     </div>

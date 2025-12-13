@@ -1,5 +1,5 @@
 .fullScreenWrapper {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding: 3rem 2rem;
   display: flex;
@@ -784,5 +784,250 @@
 
   .gradient {
     font-size: 3rem;
+  }
+}
+
+/* Input Group Container */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+/* Label */
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Interests Grid */
+.interestsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+/* Interest Button Base Styles - SMALL SIZE */
+.interestBtn {
+  padding: 6px 12px; /* Smaller padding */
+  background: #ffffff;
+  border: 2px solid #e2e2e2;
+  border-radius: 25px;
+  font-size: 0.85rem; /* Smaller font */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #444;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  outline: none;
+  user-select: none;
+  height: 32px; /* Fixed height for consistency */
+  line-height: 1;
+}
+
+.interestBtn:hover {
+  border-color: #fe9e0d;
+  color: #fe9e0d;
+  background: #fff8f0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(254, 158, 13, 0.1);
+}
+
+/* Active Interest Button - SMALL */
+.interestBtn.active {
+  background: linear-gradient(135deg, #fe9e0d, #e68c00);
+  color: white !important;
+  border-color: transparent !important;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(254, 158, 13, 0.25);
+  padding: 6px 12px;
+}
+
+/* Custom Interest Button with Cross */
+.interestBtn.active.custom {
+  padding-right: 10px;
+  padding-left: 12px;
+  position: relative;
+}
+
+.interestBtn.active.custom::after {
+  content: "✕";
+  margin-left: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  opacity: 0.9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  line-height: 1;
+}
+
+.interestBtn.active.custom:hover::after {
+  opacity: 1;
+}
+
+/* Other Button - Regular border (NOT DASHED) */
+.interestBtn:last-child:not(.active) {
+  background: #ffffff;
+  border: 2px solid #e2e2e2; /* Solid border like others */
+  color: #666;
+}
+
+.interestBtn:last-child:not(.active):hover {
+  background: #fff8f0;
+  border-color: #fe9e0d;
+  color: #fe9e0d;
+}
+
+/* Custom Interest Container */
+.customInterestContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
+  align-items: center;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Interest Input */
+.customInterestInput {
+  flex: 1;
+  padding: 8px 12px; /* Smaller padding to match buttons */
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 0.85rem; /* Smaller font */
+  outline: none;
+  transition: all 0.2s ease;
+  height: 32px; /* Same height as buttons */
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.customInterestInput:focus {
+  border-color: #fe9e0d;
+  box-shadow: 0 0 0 2px rgba(254, 158, 13, 0.1);
+}
+
+.customInterestInput::placeholder {
+  color: #999;
+  font-size: 0.85rem; /* Smaller placeholder */
+}
+
+/* Add Interest Button - SMALL */
+.addInterestBtn {
+  padding: 0 16px; /* Smaller padding */
+  height: 32px; /* Same height as buttons and input */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fe9e0d, #e68c00);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem; /* Smaller font */
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  outline: none;
+  line-height: 1;
+}
+
+.addInterestBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(254, 158, 13, 0.3);
+  background: linear-gradient(135deg, #e68c00, #fe9e0d);
+}
+
+.addInterestBtn:active {
+  transform: translateY(0);
+}
+
+/* Ensure all buttons stay in same line */
+.interestsGrid > * {
+  flex-shrink: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .interestsGrid {
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    flex-wrap: nowrap; /* Keep in single line on mobile */
+  }
+  
+  .interestBtn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    height: 30px;
+  }
+  
+  .interestBtn.active {
+    padding: 5px 10px;
+  }
+  
+  .customInterestContainer {
+    flex-direction: row; 
+    gap: 8px;
+  }
+  
+  .customInterestInput {
+    height: 30px;
+    padding: 6px 10px;
+  }
+  
+  .addInterestBtn {
+    height: 30px;
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .interestsGrid {
+    gap: 5px;
+  }
+  
+  .interestBtn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    height: 28px;
+  }
+  
+  .customInterestInput {
+    height: 28px;
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .addInterestBtn {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 0.8rem;
   }
 }
