@@ -10,7 +10,8 @@ import {
   FaMicrophone,
   FaKeyboard,
   FaMagic,
-  FaBrain
+  FaBrain,
+  FaExchangeAlt
 } from "react-icons/fa";
 
 import styles from "./TravelForm.module.css";
@@ -54,6 +55,14 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [activeOption, setActiveOption] = useState<"voice" | "form" | null>(null);
+
+  
+  const handleReverseLocations = () => {
+  const temp = from;
+  setFrom(to);
+  setTo(temp);
+};
+
 
   const toggleInterest = (i: string) => {
     setInterests((prev) =>
@@ -185,16 +194,16 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
         apiKey
       );
       console.log("🧪 DEBUG — Final Form Data Submitted:", {
-  from,
-  to,
-  days,
-  travelMode,
-  budget,
-  comfort,
-  interests,
-  mustVisit,
-  apiKeyProvided: !!apiKey
-});
+        from,
+        to,
+        days,
+        travelMode,
+        budget,
+        comfort,
+        interests,
+        mustVisit,
+        apiKeyProvided: !!apiKey
+      });
 
       navigate("/plan", { state: { formData, itinerary } });
     } catch (error) {
@@ -323,8 +332,8 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
               </div>
             )}
 
-            {/* FROM + TO */}
-            <div className={styles.grid}>
+            {/* FROM + REVERSE + TO */}
+            <div className={styles.locationGrid}>
               <div className={styles.inputGroup}>
                 <label className={styles.label}><FaMapMarkerAlt /> Starting Point</label>
                 <GeoapifyAutocomplete
@@ -334,6 +343,16 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
                   className={styles.input}
                 />
               </div>
+
+              <button
+                type="button"
+                className={styles.reverseBtn}
+                onClick={handleReverseLocations}
+                disabled={!from || !to}
+                title="Reverse starting point and destination"
+              >
+                <FaExchangeAlt size={16} />
+              </button>
 
               <div className={styles.inputGroup}>
                 <label className={styles.label}><FaMapMarkerAlt /> Destination</label>
@@ -414,91 +433,88 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
 
             {/* INTERESTS */}
             <div className={styles.inputGroup}>
-  <label className={styles.label}>Interests</label>
+              <label className={styles.label}>Interests</label>
 
-  <div className={styles.interestsGrid}>
-    {/* PREDEFINED INTERESTS */}
-    {["Nature", "History", "Food", "Adventure", "Relaxation", "Culture"].map((i) => (
-      <button
-        key={i}
-        type="button"
-        className={`${styles.interestBtn} ${interests.includes(i) ? styles.active : ""}`}
-        onClick={() => toggleInterest(i)}
-      >
-        {i}
-      </button>
-    ))}
+              <div className={styles.interestsGrid}>
+                {/* PREDEFINED INTERESTS */}
+                {["Nature", "History", "Food", "Adventure", "Relaxation", "Culture"].map((i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`${styles.interestBtn} ${interests.includes(i) ? styles.active : ""}`}
+                    onClick={() => toggleInterest(i)}
+                  >
+                    {i}
+                  </button>
+                ))}
 
-    {/* CUSTOM INTERESTS DISPLAY */}
-    {interests
-      .filter((i) => !["Nature", "History", "Food", "Adventure", "Relaxation", "Culture", "Other"].includes(i))
-      .map((custom) => (
-        <button
-          key={custom}
-          type="button"
-          className={`${styles.interestBtn} ${styles.active}`}
-          onClick={() => toggleInterest(custom)}
-        >
-          {custom} ✕
-        </button>
-      ))}
+                {/* CUSTOM INTERESTS DISPLAY */}
+                {interests
+                  .filter((i) => !["Nature", "History", "Food", "Adventure", "Relaxation", "Culture", "Other"].includes(i))
+                  .map((custom) => (
+                    <button
+                      key={custom}
+                      type="button"
+                      className={`${styles.interestBtn} ${styles.active}`}
+                      onClick={() => toggleInterest(custom)}
+                    >
+                      {custom} ✕
+                    </button>
+                  ))}
 
-    {/* OTHER OPTION */}
-    {!interests.some((i) => i === "Other") && (
-      <button
-        type="button"
-        className={`${styles.interestBtn}`}
-        onClick={() => setInterests((prev) => [...prev, "Other"])}
-      >
-        Other +
-      </button>
-    )}
-  </div>
+                {/* OTHER OPTION */}
+                {!interests.some((i) => i === "Other") && (
+                  <button
+                    type="button"
+                    className={`${styles.interestBtn}`}
+                    onClick={() => setInterests((prev) => [...prev, "Other"])}
+                  >
+                    Other +
+                  </button>
+                )}
+              </div>
 
-  {/* SHOW TEXT FIELD WHEN OTHER IS SELECTED */}
-  {interests.includes("Other") && (
-  <div className={styles.customInterestContainer}>
-    <input
-      className={styles.customInterestInput}
-      id="customInterest"
-      placeholder="Enter your custom interest..."
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          const value = (e.currentTarget as HTMLInputElement).value.trim();
-          if (!value) return;
+              {/* SHOW TEXT FIELD WHEN OTHER IS SELECTED */}
+              {interests.includes("Other") && (
+                <div className={styles.customInterestContainer}>
+                  <input
+                    className={styles.customInterestInput}
+                    id="customInterest"
+                    placeholder="Enter your custom interest..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        const value = (e.currentTarget as HTMLInputElement).value.trim();
+                        if (!value) return;
 
-          setInterests((prev) => [
-            ...prev.filter((v) => v !== "Other"),
-            value,
-          ]);
+                        setInterests((prev) => [
+                          ...prev.filter((v) => v !== "Other"),
+                          value,
+                        ]);
 
-          (e.currentTarget as HTMLInputElement).value = "";
-        }
-      }}
-    />
-    <button
-      className={styles.addInterestBtn}
-      onClick={() => {
-        const input = document.getElementById("customInterest") as HTMLInputElement;
-        const value = input.value.trim();
-        if (!value) return;
+                        (e.currentTarget as HTMLInputElement).value = "";
+                      }
+                    }}
+                  />
+                  <button
+                    className={styles.addInterestBtn}
+                    onClick={() => {
+                      const input = document.getElementById("customInterest") as HTMLInputElement;
+                      const value = input.value.trim();
+                      if (!value) return;
 
-        setInterests((prev) => [
-          ...prev.filter((v) => v !== "Other"),
-          value,
-        ]);
+                      setInterests((prev) => [
+                        ...prev.filter((v) => v !== "Other"),
+                        value,
+                      ]);
 
-        input.value = "";
-      }}
-    >
-      Add
-    </button>
-  </div>
-)}
-</div>
-
-
-
+                      input.value = "";
+                    }}
+                  >
+                    Add
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* SUBMIT BUTTON */}

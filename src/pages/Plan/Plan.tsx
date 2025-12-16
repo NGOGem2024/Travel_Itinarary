@@ -25,9 +25,9 @@ const Plan: React.FC = () => {
   return (
     <div className={styles.planPage}>
       {/* Back Button */}
-      <Link to="/create" className={styles.backButton}>
+      {/* <Link to="/create" className={styles.backButton}>
         <FaArrowLeft /> Back to Form
-      </Link>
+      </Link> */}
 
       {/* View Toggle Button */}
       <div className={styles.viewToggle}>
