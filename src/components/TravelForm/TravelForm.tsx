@@ -25,6 +25,7 @@ import VoiceOverlay from "../VoiceOverlay/VoiceOverlay";
 export interface TravelFormValues {
   from: string;
   to: string;
+  stops?: string[];
   travelMode: TravelMode;
   days: number;
   budget?: string;
@@ -40,6 +41,7 @@ interface TravelFormProps {
 
 const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => {
   const navigate = useNavigate();
+  const [stops, setStops] = useState<string[]>([]);
 
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -61,6 +63,19 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
   const temp = from;
   setFrom(to);
   setTo(temp);
+};
+const addStop = () => {
+  setStops((prev) => [...prev, ""]);
+};
+
+const updateStop = (index: number, value: string) => {
+  const updated = [...stops];
+  updated[index] = value;
+  setStops(updated);
+};
+
+const removeStop = (index: number) => {
+  setStops((prev) => prev.filter((_, i) => i !== index));
 };
 
 
@@ -163,6 +178,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
       const formData: TravelFormValues = {
         from,
         to,
+        stops,
         days,
         travelMode,
         budget,
@@ -185,6 +201,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
         travelMode,
         days,
         {
+          
           budget,
           foodPreferences: interests.includes("Food") ? "Yes" : "No",
           mustVisit: mustVisit ? [mustVisit] : [],
@@ -196,6 +213,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
       console.log("🧪 DEBUG — Final Form Data Submitted:", {
         from,
         to,
+        stops,
         days,
         travelMode,
         budget,
@@ -330,42 +348,85 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
                 <strong>Listening...</strong> Speak your travel plan clearly. Example: 
                 "I want to go from Mumbai to Paris for 7 days with luxury budget"
               </div>
-            )}
-
-            {/* FROM + REVERSE + TO */}
-            <div className={styles.locationGrid}>
-              <div className={styles.inputGroup}>
-                <label className={styles.label}><FaMapMarkerAlt /> Starting Point</label>
-                <GeoapifyAutocomplete
-                  value={from}
-                  onChange={setFrom}
-                  placeholder="e.g., Mumbai"
-                  className={styles.input}
-                />
+            )} 
+            <div className={styles.routeWrapper}>
+              <div className={styles.locationGrid}>
+                <div className={styles.inputGroup}>
+                  <div className={styles.labelRow}>
+                  <label className={styles.sdlabel}>
+                    <FaMapMarkerAlt /> Starting Point
+                  </label>
+                  </div>
+                  <GeoapifyAutocomplete
+                    value={from}
+                    onChange={setFrom}
+                    placeholder="e.g., Mumbai"
+                    className={`${styles.input} ${styles.compactInput}`}
+                  />
+                  
+                  <div className={`${styles.addStopRow} ${styles.decorative}`}>
+  
+                </div>
               </div>
 
-              <button
+                <button
+                  type="button"
+                  className={styles.reverseBtn}
+                  onClick={handleReverseLocations}
+                  disabled={!from || !to}
+                  title="Reverse starting point and destination"
+                >
+                  <FaExchangeAlt size={16} />
+                </button>
+              
+              <div className={styles.dottedLine}>
+                <button
                 type="button"
-                className={styles.reverseBtn}
-                onClick={handleReverseLocations}
+                className={styles.addStop}
                 disabled={!from || !to}
-                title="Reverse starting point and destination"
+                onClick={addStop}
+                title="Please enter both the starting point and destination to add stops"
               >
-                <FaExchangeAlt size={16} />
-              </button>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.label}><FaMapMarkerAlt /> Destination</label>
-                <GeoapifyAutocomplete
-                  value={to}
-                  onChange={setTo}
-                  placeholder="e.g., Paris"
-                  className={styles.input}
-                />
-              </div>
+              {stops.length > 0 ? stops.length : "+"}
+              </button></div>
+                <div className={styles.inputGroup}>
+                  <div className={styles.labelRow}>
+                  <label className={styles.sdlabel}>
+                    <FaMapMarkerAlt /> Destination
+                  </label>
+                  </div>
+                  <GeoapifyAutocomplete
+                    value={to}
+                    onChange={setTo}
+                    placeholder="e.g., Paris"
+                    className={`${styles.input} ${styles.compactInput}`}
+                  />
+                </div>
+              </div> 
             </div>
 
-            {/* DAYS */}
+            <div className={styles.stopsSection}>
+              {stops.map((stop, index) => (
+                <div key={index} className={styles.stopRow}>
+                  <GeoapifyAutocomplete
+                    value={stop}
+                    onChange={(val) => updateStop(index, val)}
+                    placeholder={`Stop ${index + 1}`}
+                    className={styles.input}
+                  />
+
+                  <button
+                    type="button"
+                    className={styles.removeStopBtn}
+                    onClick={() => removeStop(index)}
+                    title="Remove stop"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+
+            </div>
             <div className={styles.grid}>
               <div className={styles.inputGroup}>
                 <label className={styles.label}><FaCalendarAlt /> Trip Duration</label>
