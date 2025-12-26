@@ -1402,6 +1402,7 @@
   scrollbar-width: thin;
   scrollbar-color: #cfcfcf #f1f1f1;
   margin-left: 6px;
+  
 }
 
 .routeDisplayHorizontal::-webkit-scrollbar {
@@ -1469,8 +1470,26 @@
   
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
-  min-width: 100px;
-  max-width: 100px;
+  min-width: 120px;
+  max-width: 120px;
+  position: relative;
+}
+.stopInputHorizontal {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  flex: 1; /* Take available space */
+  min-width: 60px; /* Minimum width */
+  max-width: calc(100% - 50px); /* Leave space for number and button */
+  padding: 2px 24px 2px 4px; /* Right padding for button */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  z-index: 2;
 }
 
 .stopNumber {
@@ -1489,13 +1508,17 @@
 .stopInputHorizontal {
   border: none;
   outline: none;
-  font-size: 0.9rem;
-  width: 60px;
+  background: transparent;
+
+  font-size: 0.85rem;
+
+  width: 80px;
   min-width: 60px;
   max-width: 60px;
-  background: transparent;
-  padding: 2px;
+gap: 6px;
+  padding: 2px 8px 2px 2px;   
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
@@ -1503,9 +1526,10 @@
   color: #aaa;
 }
 .removeStopBtnHorizontal {
+  position: absolute;
   border: none;
   background: transparent;
-
+  right: 8px;
   font-size: 1rem;
   cursor: pointer;
   color: #999;
@@ -1522,7 +1546,7 @@
 
   flex-shrink: 0;
   border-radius: 50%;
-
+z-index: 2;
   transition: background 0.2s ease, color 0.2s ease;
 }
 

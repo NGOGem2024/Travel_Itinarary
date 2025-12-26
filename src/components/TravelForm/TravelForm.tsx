@@ -13,7 +13,6 @@ import {
   FaBrain,
   FaExchangeAlt,
   FaMapMarker,
-  FaFlag
 } from "react-icons/fa";
 
 import styles from "./TravelForm.module.css";
@@ -401,7 +400,7 @@ const removeStop = (index: number) => {
                   <GeoapifyAutocomplete
                     value={to}
                     onChange={setTo}
-                    placeholder={isMobile ? "Choose desination " : "e.g., Mumbai"}
+                    placeholder={isMobile ? "Choose desination " : "e.g., Paris"}
                     className={`${styles.input} ${styles.compactInput}`}
                   />
                 </div>
@@ -431,12 +430,12 @@ const removeStop = (index: number) => {
 
             </div> */}
             {from && to && stops.length > 0 && (
-  <div className={`${styles.routeDisplayHorizontal} ${stops.length > 2 ? styles.scrollable : ''}`}>
-    {/* SOURCE */}
-    <div className={`${styles.locationPoint} ${styles.source}`}>
-      <FaMapMarkerAlt size={16}/>
-      
-    </div>
+              <div className={`${styles.routeDisplayHorizontal} ${stops.length > 2 ? styles.scrollable : ''}`}>
+                {/* SOURCE */}
+                  <div className={`${styles.locationPoint} ${styles.source}`}>
+                  <FaMapMarkerAlt size={16}/>
+                  
+              </div>
 
     <span className={styles.arrowSeparator}>→</span>
 
@@ -579,7 +578,6 @@ const removeStop = (index: number) => {
                 )}
               </div>
 
-              {/* SHOW TEXT FIELD WHEN OTHER IS SELECTED */}
               {interests.includes("Other") && (
                 <div className={styles.customInterestContainer}>
                   <input
