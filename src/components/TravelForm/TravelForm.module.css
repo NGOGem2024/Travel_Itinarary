@@ -235,12 +235,11 @@
   display: flex;
   align-items: center !important;
   gap: 8px;
-
-
+  
 }
 .input {
-  margin-top: 0.45rem;
-  margin-bottom: 1.05rem;
+  /* margin-top: 0.45rem;
+  margin-bottom: 1.05rem; */
   padding: 0.85rem 1rem;
   border: 2px solid #e6e6e6;
   border-radius: 12px;
@@ -1035,7 +1034,7 @@
   cursor: pointer;
   margin-left: 15px;
   position: relative;
-  top: -105px !important;
+  top: -79px !important;
   /* left: -35px; */
   display: flex;
   align-items: center;
@@ -1060,19 +1059,55 @@
     grid-template-columns: 1fr;
   }
 
-  .reverseBtn {
+  /* .reverseBtn {
     margin: 0 auto;
     transform: rotate(90deg);
+  } */
+  .reverseBtn{
+    right: -125px !important;
+    top: -8px !important;
   }
+  .dottedLine{
+    display: none;
+  }
+  
+  .dottedLine {
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 80px;                /* vertical length */
+    display: block;
+    border-top: none;
+    border-left: 2px dotted #bbb; /* vertical dotted line */
+
+    transform: translate(-50%, -50%);
+  }
+  /* .dottedLine {
+    left: 49% !important;
+    height: 70px;
+    margin-bottom: 100px !important;
+    border-left-width: 11px;
+    width: auto !important;
+    height: 90px;
+    border-left: 2px dotted #bbb;
+    top: 49% !important;
+    transform: translate(-50%, -50%);
+  
+  } */
+
+  .sdlabel{
+    display: none;
+    gap: 2px !important;
+  }
+  
 }
 
-.stopsSection {
+/* .stopsSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  /* margin-bottom: 1rem; */
   
 }
 
@@ -1089,8 +1124,128 @@
   border-radius: 6px;
   padding: 0.4rem 0.6rem;
   cursor: pointer;
+} */
+.routeDisplay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #fff5e6;
+  border-radius: 8px;
+  border: 1px solid #fe9e0d;
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: 11px;
 }
 
+.routeDisplay::-webkit-scrollbar {
+  height: 4px;
+}
+
+.routeDisplay::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.routeDisplay::-webkit-scrollbar-thumb {
+  background: #fe9e0d;
+  border-radius: 4px;
+}
+
+.routeDisplay::-webkit-scrollbar-thumb:hover {
+  background: #e58d0c;
+}
+
+.locationItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.locationLabel {
+  font-weight: 600;
+  color: #fe9e0d;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.locationValue {
+  color: #333;
+  font-weight: 500;
+  padding: 4px 8px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #fe9e0d;
+}
+
+.stopItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.stopCount {
+  background-color: #fe9e0d;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.stopInput {
+  padding: 4px 24px 4px 8px;
+  border: 1px solid #fe9e0d;
+  border-radius: 4px;
+  font-size: 11px;
+  outline: none;
+  width: 100px;
+  transition: border-color 0.2s;
+}
+
+.stopInput:focus {
+  border-color: #e58d0c;
+  box-shadow: 0 0 0 2px rgba(254, 158, 13, 0.1);
+}
+
+.stopInput::placeholder {
+  color: #999;
+  font-size: 10px;
+}
+
+.removeBtn {
+  position: absolute;
+  right: 4px;
+  background: none;
+  border: none;
+  color: #fe9e0d;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.removeBtn:hover {
+  color: #e58d0c;
+}
+
+.separator {
+  color: #fe9e0d;
+  font-weight: 600;
+  flex-shrink: 0;
+}
 
 .routeWrapper {
   display: flex;
@@ -1119,7 +1274,7 @@
 
 .dottedLine {
   position: absolute;
-  top: 55%;
+  top: 63%;
   left: calc(49% - 30px);   
   width: 70px;
   border-top: 2px dotted #bbb;
@@ -1151,6 +1306,8 @@
     padding-left: 0;
     justify-content: center;
   }
+
+
 }
 .labelWithReverse {
   display: flex;
@@ -1199,11 +1356,11 @@
 
 .addStop {
   position: absolute;
-  top: -13px;                    
+  top: -15px;                    
   left: 37.1%;                    
   transform: translateX(-10%);   
-  width: 27px;
-  height: 27px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 1.5px solid #ff9800;
   background: #fff;
@@ -1220,4 +1377,292 @@
 }
 .addStop:disabled {
   cursor: not-allowed;
+}
+
+/* Stops */
+/*  */
+
+.routeDisplayHorizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 500px !important; 
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 36px;
+  min-height: 56px;
+  max-height: 56px;
+  padding: 8px 10px;
+  top: 2px !important;
+  border-radius: 18px;
+  background: #f9fafb;
+  border: 1px dashed #e0e0e0;
+  scrollbar-width: thin;
+  scrollbar-color: #cfcfcf #f1f1f1;
+  margin-left: 6px;
+}
+
+.routeDisplayHorizontal::-webkit-scrollbar {
+  height: 0;
+}
+
+.routeDisplayHorizontal:hover::-webkit-scrollbar {
+  height: 4px;
+}
+
+.routeDisplayHorizontal::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+  border-radius: 10px;
+}
+
+.routeDisplayHorizontal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* ===== SOURCE & DESTINATION ===== */
+.locationPoint {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Limit text width */
+  max-width: 100px; /* Reduced from 120px */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source {
+  border: 1px solid #4caf50;
+  color: #2e7d32;
+}
+
+.destination {
+  border: 1px solid #ff9800;
+  color: #e65100;
+}
+
+/* ===== ARROW SEPARATOR ===== */
+.arrowSeparator {
+  font-size: 1.1rem;      
+  color: #9e9e9e;
+  flex-shrink: 0;
+  margin: 0 3px; 
+  line-height: 1;
+}
+
+/* ===== STOP ITEM (PILL STYLE) ===== */
+.stopItemHorizontal {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 4px 8px;
+  height: 38px;
+  
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  /* Fixed width for each stop - reduced */
+  min-width: 100px;
+  max-width: 100px;
+}
+
+/* ===== STOP NUMBER BADGE ===== */
+.stopNumber {
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  background: #ff9800;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stopInputHorizontal {
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  background: transparent;
+  padding: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* margin: 2px; */
+}
+
+.stopInputHorizontal::placeholder {
+  color: #aaa;
+}
+
+/* ===== REMOVE STOP BUTTON ===== */
+.removeStopBtnHorizontal {
+  border: none;
+  background: transparent;
+
+  font-size: 1rem;
+  cursor: pointer;
+  color: #999;
+
+  width: 16px;
+  height: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: -25px;     /* ✅ space from input */
+  margin-right: 2px;
+
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.removeStopBtnHorizontal:hover {
+  color: #e53935;
+}
+
+/* ===== ICONS ===== */
+.icon {
+  font-size: 0.65rem;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+
+/* 
+  With current sizing:
+  - Source: ~120px (100px max + padding)
+  - Destination: ~120px (100px max + padding)
+  - Each stop: ~108px (100px + padding)
+  - Arrows: ~15px each
+  - Gaps: 8px between each item
+  
+  For 3 stops total:
+  Total width ≈ 120 + 15 + 108 + 8 + 108 + 8 + 108 + 15 + 120 = ~610px
+  
+  Our container max-width is 450px, so after ~2 stops, scrolling will start.
+*/
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+  .routeDisplayHorizontal {
+    max-width: 380px;
+    height: 34px;
+    min-height: 34px;
+    max-height: 34px;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  
+  .locationPoint {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+    height: 22px;
+    max-width: 90px;
+  }
+  
+  .stopItemHorizontal {
+    min-width: 90px;
+    max-width: 90px;
+    height: 22px;
+    padding: 3px 6px;
+    gap: 5px;
+  }
+  
+  .stopInputHorizontal {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    font-size: 0.65rem;
+  }
+  
+  .stopNumber {
+    width: 14px;
+    height: 14px;
+    font-size: 0.6rem;
+  }
+  
+  .arrowSeparator {
+    font-size: 0.8rem;
+    margin: 0 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .routeDisplayHorizontal {
+    max-width: 320px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    padding: 5px 6px;
+    gap: 4px;
+  }
+  
+  .locationPoint {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+    height: 20px;
+    max-width: 80px;
+  }
+  
+  .stopItemHorizontal {
+    min-width: 80px;
+    max-width: 80px;
+    height: 20px;
+    padding: 2px 4px;
+    gap: 4px;
+  }
+  
+  .stopInputHorizontal {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    font-size: 0.6rem;
+  }
+  
+  .icon {
+    font-size: 0.6rem;
+    margin-right: 3px;
+  }
+}
+
+/* If you want the container to be exactly the width of its parent */
+.container-wrapper {
+  width: 100%;
+  max-width: 100%; /* Take full width of parent */
+}
+
+/* Optional: Dynamic width calculation */
+.dynamic-width {
+  width: auto;
+  max-width: 100%;
+  /* Will expand until it hits parent container's max, then scroll */
+}
+
+/* For the specific layout in your image */
+@media (min-width: 769px) {
+  .routeDisplayHorizontal {
+    /* Match the form width from your image */
+    max-width: 420px;
+  }
 }

@@ -65,16 +65,16 @@ body {
 }
 
 .primary-heading {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1.5rem, 5vw, 3rem);
   color: #4c4c4c;
   max-width: 600px;
 }
 
 .primary-text {
-  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 3vw, 1.3rem);
   max-width: 500px;
   color: #6a6a6a;
-  margin: 1.5rem 0rem;
+  margin: 1rem 0rem;
 }
 
 .primary-subheading {

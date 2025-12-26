@@ -31,11 +31,7 @@ const LandingPage: React.FC = () => {
 
           <p className="primary-text">
             Explore destinations, plan smarter, and experience your journey
-            before it begins.
-          </p>
-
-          <p className="primary-text">
-            Find hidden gems, create personalized itineraries, and make every
+            before it begins.Find hidden gems, create personalized itineraries, and make every
             trip unforgettable.
           </p>
 

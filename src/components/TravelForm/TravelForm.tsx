@@ -11,7 +11,9 @@ import {
   FaKeyboard,
   FaMagic,
   FaBrain,
-  FaExchangeAlt
+  FaExchangeAlt,
+  FaMapMarker,
+  FaFlag
 } from "react-icons/fa";
 
 import styles from "./TravelForm.module.css";
@@ -21,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { generateItinerary } from "../../services/aiPlanner";
 import GeoapifyAutocomplete from "./GeoapifyAutocomplete";
 import VoiceOverlay from "../VoiceOverlay/VoiceOverlay";
-
+import { MdAddLocationAlt } from "react-icons/md";
 export interface TravelFormValues {
   from: string;
   to: string;
@@ -58,7 +60,8 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit: parentOnSubmit }) => 
   const [transcript, setTranscript] = useState("");
   const [activeOption, setActiveOption] = useState<"voice" | "form" | null>(null);
 
-  
+  const isMobile = window.innerWidth <= 768;
+
   const handleReverseLocations = () => {
   const temp = from;
   setFrom(to);
@@ -360,7 +363,7 @@ const removeStop = (index: number) => {
                   <GeoapifyAutocomplete
                     value={from}
                     onChange={setFrom}
-                    placeholder="e.g., Mumbai"
+                    placeholder={isMobile ? "Choose start location" : "e.g., Mumbai"}
                     className={`${styles.input} ${styles.compactInput}`}
                   />
                   
@@ -387,7 +390,7 @@ const removeStop = (index: number) => {
                 onClick={addStop}
                 title="Please enter both the starting point and destination to add stops"
               >
-              {stops.length > 0 ? stops.length : "+"}
+              <MdAddLocationAlt />
               </button></div>
                 <div className={styles.inputGroup}>
                   <div className={styles.labelRow}>
@@ -398,14 +401,14 @@ const removeStop = (index: number) => {
                   <GeoapifyAutocomplete
                     value={to}
                     onChange={setTo}
-                    placeholder="e.g., Paris"
+                    placeholder={isMobile ? "Choose desination " : "e.g., Mumbai"}
                     className={`${styles.input} ${styles.compactInput}`}
                   />
                 </div>
               </div> 
             </div>
 
-            <div className={styles.stopsSection}>
+            {/* <div className={styles.stopsSection}>
               {stops.map((stop, index) => (
                 <div key={index} className={styles.stopRow}>
                   <GeoapifyAutocomplete
@@ -426,7 +429,48 @@ const removeStop = (index: number) => {
                 </div>
               ))}
 
-            </div>
+            </div> */}
+            {from && to && stops.length > 0 && (
+  <div className={`${styles.routeDisplayHorizontal} ${stops.length > 2 ? styles.scrollable : ''}`}>
+    {/* SOURCE */}
+    <div className={`${styles.locationPoint} ${styles.source}`}>
+      <FaMapMarkerAlt size={16}/>
+      
+    </div>
+
+    <span className={styles.arrowSeparator}>→</span>
+
+    {/* STOPS */}
+    {stops.map((stop, index) => (
+      <div key={index} className={styles.stopItemHorizontal}>
+        {/* <FaFlag className={styles.icon} /> */}
+        <span className={styles.stopNumber}>{index + 1}</span>
+        <input
+          
+          value={stop}
+          onChange={(e) => updateStop(index, e.target.value)}
+          placeholder="Stop"
+          className={styles.stopInputHorizontal}
+        />
+        <button
+          onClick={() => removeStop(index)}
+          className={styles.removeStopBtnHorizontal}
+          title="Remove stop"
+        >
+          ✕
+        </button>
+      </div>
+    ))}
+
+    <span className={styles.arrowSeparator}>→</span>
+
+    {/* DESTINATION */}
+    <div className={`${styles.locationPoint} ${styles.destination}`}>
+      <FaMapMarker size={16}/>
+      
+    </div>
+  </div>
+)}
             <div className={styles.grid}>
               <div className={styles.inputGroup}>
                 <label className={styles.label}><FaCalendarAlt /> Trip Duration</label>
