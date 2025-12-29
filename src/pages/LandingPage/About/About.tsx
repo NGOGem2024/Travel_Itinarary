@@ -67,7 +67,7 @@ const About: React.FC = () => {
               className={`${styles.watchVideoButton}`}
               onClick={openVideoModal}
             >
-              <BsFillPlayCircleFill /> Watch Video
+              <BsFillPlayCircleFill className={styles.watchbtn}/> Watch Video
             </button>
           </div>
         </div>

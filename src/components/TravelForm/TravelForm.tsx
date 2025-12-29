@@ -382,7 +382,7 @@ const removeStop = (index: number) => {
                 </button>
               
               <div className={styles.dottedLine}>
-                <button
+                <button 
                 type="button"
                 className={styles.addStop}
                 disabled={!from || !to}
@@ -407,28 +407,6 @@ const removeStop = (index: number) => {
               </div> 
             </div>
 
-            {/* <div className={styles.stopsSection}>
-              {stops.map((stop, index) => (
-                <div key={index} className={styles.stopRow}>
-                  <GeoapifyAutocomplete
-                    value={stop}
-                    onChange={(val) => updateStop(index, val)}
-                    placeholder={`Stop ${index + 1}`}
-                    className={styles.input}
-                  />
-
-                  <button
-                    type="button"
-                    className={styles.removeStopBtn}
-                    onClick={() => removeStop(index)}
-                    title="Remove stop"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-
-            </div> */}
             {from && to && stops.length > 0 && (
               <div className={`${styles.routeDisplayHorizontal} ${stops.length > 2 ? styles.scrollable : ''}`}>
                 {/* SOURCE */}
@@ -440,17 +418,18 @@ const removeStop = (index: number) => {
     <span className={styles.arrowSeparator}>→</span>
 
     {/* STOPS */}
-    {stops.map((stop, index) => (
-      <div key={index} className={styles.stopItemHorizontal}>
-        {/* <FaFlag className={styles.icon} /> */}
-        <span className={styles.stopNumber}>{index + 1}</span>
-        <input
-          
-          value={stop}
-          onChange={(e) => updateStop(index, e.target.value)}
-          placeholder="Stop"
-          className={styles.stopInputHorizontal}
-        />
+              {stops.map((stop, index) => (
+                <div key={index} className={styles.stopItemHorizontal}>
+                  {/* <FaFlag className={styles.icon} /> */}
+                  <span className={styles.stopNumber}>{index + 1}</span>
+                  <input
+            type="text"
+            value={stop}
+            onChange={(e) => updateStop(index, e.target.value)}
+            placeholder="Stop"
+            className={styles.stopInputHorizontal}
+          />
+
         <button
           onClick={() => removeStop(index)}
           className={styles.removeStopBtnHorizontal}
@@ -463,13 +442,13 @@ const removeStop = (index: number) => {
 
     <span className={styles.arrowSeparator}>→</span>
 
-    {/* DESTINATION */}
-    <div className={`${styles.locationPoint} ${styles.destination}`}>
-      <FaMapMarker size={16}/>
-      
-    </div>
-  </div>
-)}
+          {/* DESTINATION */}
+          <div className={`${styles.locationPoint} ${styles.destination}`}>
+            <FaMapMarker size={16}/>
+            
+          </div>
+        </div>
+        )}
             <div className={styles.grid}>
               <div className={styles.inputGroup}>
                 <label className={styles.label}><FaCalendarAlt /> Trip Duration</label>

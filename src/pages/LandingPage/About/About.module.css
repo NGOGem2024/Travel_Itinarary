@@ -69,10 +69,15 @@
 
 @media screen and (max-width: 480px){
   .aboutSectionContainer {
-  margin-top: 10rem;
+  margin-top: 4rem;
   
 }
+.watchbtn{
+  
+  font-size: 35px !important;
 
+
+}
 .aboutBackgroundImageContainer {
   position: absolute; 
   left: -142px;
@@ -85,4 +90,5 @@
   display: none;
   margin-right: 2rem;
 }
+
 }

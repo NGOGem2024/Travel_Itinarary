@@ -52,3 +52,62 @@
     margin-top: 1rem !important;
   }
 }
+
+@media (max-width: 768px) {
+  .workSectionWrapper {
+    margin-top: 5rem !important;
+  }
+
+  .workSectionBottom {
+    flex-wrap: nowrap;              /* 🔑 single row */
+    overflow-x: auto;               /* 🔑 horizontal scroll */
+    justify-content: flex-start;
+    gap: 1rem;
+
+    padding: 1rem;
+    scroll-behavior: smooth;
+  }
+
+  .workSectionBottom::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .workSectionBottom::-webkit-scrollbar-thumb {
+    background: #fe9e0d;
+    border-radius: 10px;
+  }
+
+  .workSectionInfo {
+    flex: 0 0 260px;                /* 🔑 fixed card width */
+    margin: 0;
+    min-height: 320px;
+  }
+}
+@media (max-width: 480px) {
+  .workSectionBottom {
+    flex-wrap: wrap;          /* 🔑 back to vertical */
+    overflow-x: hidden;
+    justify-content: center;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .workSectionInfo {
+    width: 90%;
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .workSectionInfo h2 {
+    font-size: 1.1rem;
+  }
+
+  .workSectionInfo p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .infoBoxesImgContainer img {
+    max-width: 90px;
+  }
+}

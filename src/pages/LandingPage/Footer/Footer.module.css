@@ -48,9 +48,12 @@
 }
 
 /* Mobile */
-@media (max-width: 800px) {
+@media (max-width: 480px) {
   .footerWrapper {
     flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .footerSectionTwo {

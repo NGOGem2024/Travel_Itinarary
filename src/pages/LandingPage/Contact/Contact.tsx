@@ -4,7 +4,7 @@ import styles from "./Contact.module.css";
 const Contact: React.FC = () => {
   const [message, setMessage] = useState("");
 
-  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=shraddhah1104@gmail.com&su=User Query&body=${encodeURIComponent(
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=travelovia@gmail.com&su=User Query&body=${encodeURIComponent(
     message
   )}`;
 

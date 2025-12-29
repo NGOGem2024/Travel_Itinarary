@@ -31,15 +31,15 @@ const LandingPage: React.FC = () => {
 
           <p className="primary-text">
             Explore destinations, plan smarter, and experience your journey
-            before it begins.Find hidden gems, create personalized itineraries, and make every
-            trip unforgettable.
+            before it begins.
           </p>
-
+          <p className="primary-text">Find hidden gems, create personalized itineraries, and make every
+            trip unforgettable.</p>
           <button
       className="secondary-button"
       onClick={() => navigate("/create")}
     >
-      Start Exploring <FiArrowRight />
+      Start Exploring 
     </button>
         </div>
 
