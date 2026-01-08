@@ -15,7 +15,6 @@ const Home: React.FC = () => {
     console.log("TravelItinerary Version: 2.1 - Debug Mode");
   }, []);
 
-  const apiKeyStatus = import.meta.env.VITE_GEMINI_API_KEY ? "Loaded ✅" : "Missing ❌";
 
   async function handleSubmit(values: TravelFormValues) {
     setLoading(true);

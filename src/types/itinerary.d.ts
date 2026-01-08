@@ -4,7 +4,19 @@ export interface TravelPreferences {
   budget?: string
   foodPreferences?: string
   mustVisit?: string[]
+  stops?: string[]
   comfort?: 'low' | 'medium' | 'high'
+  interests?: string[]
+}
+
+export interface HotelOption {
+  name: string
+  address: string
+  rating: number
+  price: string
+  description: string
+  imageUrl?: string // New field for hotel image
+  coordinates: { lat: number; lng: number }
 }
 
 export interface DayPlan {
@@ -12,6 +24,7 @@ export interface DayPlan {
   date?: string
   location?: string
   stay: string
+  hotelOptions?: HotelOption[]
   travels: string[]
   activities: string[]
   food?: string[]

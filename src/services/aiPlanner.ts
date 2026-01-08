@@ -18,6 +18,8 @@ export async function generateItinerary(
       const interests = [
         ...(preferences?.foodPreferences ? [`Food: ${preferences.foodPreferences}`] : []),
         ...(preferences?.mustVisit || []),
+        ...(preferences?.stops ? preferences.stops.map(s => `Stop at: ${s}`) : []),
+        ...(preferences?.interests || []),
         ...(preferences?.comfort ? [`Comfort Level: ${preferences.comfort}`] : [])
       ];
 
@@ -28,7 +30,8 @@ export async function generateItinerary(
         mode,
         days,
         preferences?.budget || 'Moderate',
-        interests
+        interests,
+        preferences?.stops || []
       );
 
       // Merge with local data if needed (e.g. ensure travelMode is set)

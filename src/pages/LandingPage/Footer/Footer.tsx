@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../assets/trravelovia.png";
+import Logo from "../../../assets/croppedtravloviatrans.png";
 import { BsTwitter } from "react-icons/bs";
 import { SiLinkedin } from "react-icons/si";
 import { BsYoutube } from "react-icons/bs";

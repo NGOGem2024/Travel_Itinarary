@@ -6,9 +6,10 @@ import { FaPlay, FaPause, FaStop, FaStepForward, FaStepBackward } from 'react-ic
 
 interface RouteVisualizerProps {
   itinerary: Itinerary;
+  onHotelSelect?: (day: number, hotel: import('../../types/itinerary').HotelOption) => void;
 }
 
-const RouteVisualizer: React.FC<RouteVisualizerProps> = ({ itinerary }) => {
+const RouteVisualizer: React.FC<RouteVisualizerProps> = ({ itinerary, onHotelSelect }) => {
   const globeRef = useRef<GlobeHandle>(null);
   const [playbackState, setPlaybackState] = useState({
     isPlaying: false,
@@ -37,12 +38,14 @@ const RouteVisualizer: React.FC<RouteVisualizerProps> = ({ itinerary }) => {
           lng: day.coordinates.lng,
           name: day.location || `Day ${day.day}`,
           day: day.day,
+          date: day.date, // Pass the date
           activities: day.activities,
           stay: day.stay,
           weather: day.weather,
           approximateCost: day.approximateCost,
           travels: day.travels,
-          pois: day.pois
+          pois: day.pois,
+          hotelOptions: day.hotelOptions
         });
       }
     });
@@ -75,6 +78,7 @@ const RouteVisualizer: React.FC<RouteVisualizerProps> = ({ itinerary }) => {
           ref={globeRef} 
           locations={locations} 
           onStateChange={setPlaybackState}
+          onHotelSelect={onHotelSelect}
         />
       </Canvas>
       

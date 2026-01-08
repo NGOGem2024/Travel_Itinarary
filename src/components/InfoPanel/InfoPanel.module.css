@@ -207,3 +207,104 @@
     max-height: 40vh;
   }
 }
+
+.hotelSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.changeHotelBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.2s;
+}
+
+.changeHotelBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hotelOptionsContainer {
+  margin-top: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hotelOption {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.hotelOption:last-child {
+  margin-bottom: 0;
+}
+
+.hotelOption:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hotelOption.selected {
+  background: rgba(100, 180, 255, 0.15);
+  border-color: rgba(100, 180, 255, 0.5);
+}
+
+.hotelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.hotelName {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.hotelRating {
+  color: #fbbf24;
+  font-size: 0.85rem;
+}
+
+.hotelAddress {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.4rem;
+}
+
+.hotelPrice {
+  font-size: 0.9rem;
+  color: #818cf8;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.hotelDesc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.hotelImage {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+

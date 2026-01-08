@@ -25,7 +25,7 @@
 /* FIRST SCREEN */
 .formScreen {
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   position: relative;
   z-index: 10;
 }
